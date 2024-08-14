@@ -20,7 +20,7 @@ const route = useRoute()
           }"
           class="text-sm hover:underline mx-2"
         >
-          Home
+          Medal Table
         </RouterLink>
         |
         <RouterLink
@@ -31,7 +31,7 @@ const route = useRoute()
           }"
           class="text-sm hover:underline mx-2"
         >
-          About
+          Cheer up !
         </RouterLink>
       </nav>
 
