@@ -1,19 +1,26 @@
+export interface Country {
+  id: number
+  name: string
+  nocCode: string //National olympic committee code like USA
+  flagUrl:string
+  description: string
+  gold: number
+  silver: number
+  bronze: number
+  total: number
+  detail: Detail[];
+}
+export interface Detail {
+  sportName: string
+  rank: number
+  medalsUrl: string
+}
 export interface Sport {
-    name: string;
-    gold: number;
-    silver: number;
-    bronze: number;
-  }
-  
-  export interface Country {
-    id: number;
-    name: string;
-    flag: string;
-    gold: number;
-    silver: number;
-    bronze: number;
-    total: number;
-    sports: Sport[];
-    showDetails: boolean;  // This tracks whether the details are shown
-  }
-  
+  sportName: string
+  rank: number
+  medelUrl: string
+
+}
+
+
+
