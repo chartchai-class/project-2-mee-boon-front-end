@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 
 const route = useRoute()
 </script>
@@ -24,7 +24,7 @@ const route = useRoute()
         </RouterLink>
         |
         <RouterLink
-          to="/about"
+          :to="{ name: 'about' }"
           :class="{
             'text-blue-600 font-semibold': route.path === '/about',
             'text-gray-600': route.path !== '/about'
@@ -36,13 +36,17 @@ const route = useRoute()
       </nav>
 
       <main class="flex-grow">
-        <SpeedInsight />
+        <!-- Content here -->
+    <RouterView />
+
       </main>
     </div>
+
 
     <footer class="bg-gray-200 p-4 text-gray-700 text-center">
       <p class="text-sm">&copy; 2024 Mee Boon Olympic. All rights reserved.</p>
     </footer>
+
   </div>
 </template>
 
