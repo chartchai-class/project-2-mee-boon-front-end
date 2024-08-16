@@ -1,105 +1,91 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { type Country } from '@/types'
+import { ref, onMounted } from 'vue';
+import EventService from '@/services/EventService';
+import { type Country } from '@/types';
 
-// Declare the countries array and country variable outside the function
-const countriesData: Country[] = [
-  {
-    id: 1,
-    name: 'United States of America',
-    flag: '🇺🇸',
-    gold: 40,
-    silver: 44,
-    bronze: 42,
-    total: 126,
-    sports: [
-      { name: '3x3 Basketball', gold: 0, silver: 0, bronze: 1 },
-      { name: 'Archery', gold: 0, silver: 1, bronze: 1 },
-      { name: 'Artistic Gymnastics', gold: 3, silver: 1, bronze: 5 },
-      { name: 'Athletics', gold: 14, silver: 11, bronze: 9 },
-      // Add more sports as needed...
-    ],
-    showDetails: false,
-  },
-  {
-    id: 2,
-    name: 'People\'s Republic of China',
-    flag: '🇨🇳',
-    gold: 40,
-    silver: 27,
-    bronze: 24,
-    total: 91,
-    sports: [
-      { name: 'Weightlifting', gold: 15, silver: 7, bronze: 5 },
-      { name: 'Table Tennis', gold: 12, silver: 10, bronze: 7 },
-      { name: 'Badminton', gold: 13, silver: 10, bronze: 12 },
-      // Add more sports as needed...
-    ],
-    showDetails: false,
-  },
-  // Add more countries as needed...
-]
+// State to hold the list of countries
+const countries = ref<Country[]>([]);
 
-const countries = ref<Country[]>([])
-const country = ref<Country | undefined>(undefined)
+// State to track which country's details are visible
+const visibleCountryIds = ref<Set<number>>(new Set());
 
+// Fetch the data when the component is mounted
 onMounted(() => {
-  countries.value = countriesData
-})
+  EventService.getEvent().then((response) => {
+    countries.value = response.data;
+  });
+});
 
+// Toggle the visibility of a country's details
 const toggleDetails = (id: number) => {
-  const foundCountry = countries.value.find(c => c.id === id);
-  if (foundCountry) {
-    country.value = foundCountry;
-    country.value.showDetails = !country.value.showDetails;
+  if (visibleCountryIds.value.has(id)) {
+    visibleCountryIds.value.delete(id);
+  } else {
+    visibleCountryIds.value.add(id);
   }
-}
+};
 </script>
 
 <template>
-  <div class="max-w-full mx-auto p-5">
-    <h1 class="text-center text-3xl font-bold mb-6">Medal Table</h1>
-    <div class="overflow-x-auto">
-      <table class="min-w-full text-left border-collapse">
-        <thead>
-          <tr class="bg-gray-100">
-            <th class="p-4 font-medium">Order</th>
-            <th class="p-4 font-medium">NOCs</th>
-            <th class="p-4 font-medium">🥇 Gold</th>
-            <th class="p-4 font-medium">🥈 Silver</th>
-            <th class="p-4 font-medium">🥉 Bronze</th>
-            <th class="p-4 font-medium">Total</th>
-            <th class="p-4 font-medium"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(country, index) in countries" :key="country.id" class="border-b hover:bg-gray-50">
-            <td class="p-4">{{ index + 1 }}</td>
-            <td class="p-4 flex items-center">
-              <span class="mr-2">{{ country.flag }}</span> {{ country.name }}
-            </td>
-            <td class="p-4">{{ country.gold }}</td>
-            <td class="p-4">{{ country.silver }}</td>
-            <td class="p-4">{{ country.bronze }}</td>
-            <td class="p-4 font-bold">{{ country.total }}</td>
-            <td class="p-4">
-              <button @click="toggleDetails(country.id)" class="text-blue-500 focus:outline-none">
-                {{ country.showDetails ? '-' : '+' }}
-              </button>
-            </td>
-          </tr>
-
-          <!-- Details row for sports -->
-          <!-- <tr v-if="country.value?.showDetails" v-for="sport in country.value?.sports" :key="sport.name" class="bg-gray-50">
-            <td colspan="2" class="p-4 pl-10">{{ sport.name }}</td>
-            <td class="p-4">{{ sport.gold }}</td>
-            <td class="p-4">{{ sport.silver }}</td>
-            <td class="p-4">{{ sport.bronze }}</td>
-            <td class="p-4 font-bold">{{ sport.gold + sport.silver + sport.bronze }}</td>
-            <td class="p-4"></td>
-          </tr> -->
-        </tbody>
-      </table>
+  <div class="max-w-7xl mx-auto p-5">
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+              <th class="py-3 px-4 font-semibold text-sm uppercase text-left">Rank</th>
+              <th class="py-3 px-4 font-semibold text-sm uppercase text-left">Country</th>
+              <th class="py-3 px-4 font-semibold text-sm uppercase text-center">🥇 Gold</th>
+              <th class="py-3 px-4 font-semibold text-sm uppercase text-center">🥈 Silver</th>
+              <th class="py-3 px-4 font-semibold text-sm uppercase text-center">🥉 Bronze</th>
+              <th class="py-3 px-4 font-semibold text-sm uppercase text-center">Total</th>
+              <th class="py-3 px-4 font-semibold text-sm uppercase text-center">Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template v-for="(country, index) in countries" :key="country.id">
+              <tr class="border-b border-gray-200 hover:bg-gray-50 transition duration-150">
+                <td class="py-3 px-4 text-gray-800">{{ index + 1 }}</td>
+                <td class="py-3 px-4">
+                  <div class="flex items-center">
+                    <img :src="country.flagUrl" alt="Flag" class="w-6 h-6 rounded-full mr-3 border border-gray-300" />
+                    <span class="font-medium text-gray-700">{{ country.name }}</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-center font-semibold text-yellow-500">{{ country.gold }}</td>
+                <td class="py-3 px-4 text-center font-semibold text-gray-500">{{ country.silver }}</td>
+                <td class="py-3 px-4 text-center font-semibold text-amber-600">{{ country.bronze }}</td>
+                <td class="py-3 px-4 text-center font-bold text-blue-600">{{ country.total }}</td>
+                <td class="py-3 px-4 text-center">
+                  <button @click="toggleDetails(country.id)" 
+                          class="text-blue-500 hover:text-blue-700 focus:outline-none transition duration-150">
+                    <span class="sr-only">Toggle details</span>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path :d="visibleCountryIds.has(country.id) 
+                        ? 'M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z' 
+                        : 'M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z'"
+                      clip-rule="evenodd" fill-rule="evenodd"></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+              <!-- Details row for sports -->
+              <tr v-if="visibleCountryIds.has(country.id)" class="bg-blue-50">
+                <td colspan="7" class="py-4 px-4">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div v-for="sport in country.detail" :key="sport.sportName" 
+                         class="bg-white p-3 rounded shadow-sm">
+                      <h3 class="font-semibold text-gray-700">{{ sport.sportName }}</h3>
+                      <p class="text-sm text-gray-600">Medals: {{ sport.medalsUrl }}</p>
+                      <p class="text-sm text-gray-600">Rank: {{ sport.rank }}</p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
