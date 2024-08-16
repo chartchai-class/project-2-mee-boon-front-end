@@ -2,60 +2,38 @@
 import { RouterLink, useRoute } from 'vue-router'
 
 const route = useRoute()
+
+const links = [
+  { to: '/', label: 'Medal Table' },
+  { to: '/about', label: 'Cheer up!' }
+]
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-100 text-gray-900 flex flex-col">
-    <header class="bg-white shadow-lg p-4">
-      <h1 class="text-4xl font-semibold text-center">Mee Boon Olympic</h1>
+  <div class="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100">
+    <header class="bg-white shadow-sm p-6">
+      <h1 class="text-3xl font-bold text-center text-indigo-800">Mee Boon Olympic</h1>
     </header>
-
-    <div id="layout" class="flex-grow p-6">
-      <nav class="text-center mb-6">
-        <RouterLink
-          to="/"
-          :class="{
-            'text-blue-600 font-semibold': route.path === '/',
-            'text-gray-600': route.path !== '/'
-          }"
-          class="text-sm hover:underline mx-2"
-        >
-          Medal Table
-        </RouterLink>
-        |
-        <RouterLink
-          :to="{ name: 'about' }"
-          :class="{
-            'text-blue-600 font-semibold': route.path === '/about',
-            'text-gray-600': route.path !== '/about'
-          }"
-          class="text-sm hover:underline mx-2"
-        >
-          Cheer up !
-        </RouterLink>
+    <div class="flex-grow flex p-6">
+      <nav class="w-64 bg-white rounded-lg shadow-md p-6 mr-6">
+        <div class="space-y-4">
+          <RouterLink
+            v-for="link in links"
+            :key="link.to"
+            :to="link.to"
+            class="block py-2 px-4 rounded-md transition-colors duration-200"
+            :class="route.path === link.to ? 'bg-indigo-600 text-white font-medium' : 'text-gray-700 hover:bg-indigo-100'"
+          >
+            {{ link.label }}
+          </RouterLink>
+        </div>
       </nav>
-
-      <main class="flex-grow">
-        <!-- Content here -->
-    <RouterView />
-
+      <main class="flex-grow bg-white rounded-lg shadow-md p-6">
+        <RouterView />
       </main>
     </div>
-
-
-    <footer class="bg-gray-200 p-4 text-gray-700 text-center">
-      <p class="text-sm">&copy; 2024 Mee Boon Olympic. All rights reserved.</p>
+    <footer class="bg-white shadow-sm p-4 mt-6">
+      <p class="text-center text-sm text-gray-600">&copy; 2024 Mee Boon Olympic. All rights reserved.</p>
     </footer>
-
   </div>
 </template>
-
-<style scoped>
-/* CSS เฉพาะที่จำเป็น */
-#layout {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-</style>
