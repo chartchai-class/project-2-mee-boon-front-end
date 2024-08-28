@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MedalTable from '@/components/OlympicMedalTable.vue'
+import MedalTable from '@/views/OlympicMedalTable.vue'
 </script>
 <template>
   <div class="medalHome">

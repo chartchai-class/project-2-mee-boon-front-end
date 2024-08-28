@@ -14,5 +14,11 @@ export default {
 
   getEvent() {
     return apiClient.get('/countries')
+  },
+  getCountry(id: number) {
+    return apiClient.get(`/countries/${id}`)
+  },
+  getCountries(perPage: number, page: number) {
+    return apiClient.get(`/countries?_limit=${perPage}&_page=${page}`)
   }
 }
