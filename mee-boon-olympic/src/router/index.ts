@@ -77,7 +77,22 @@ const router = createRouter({
       name: 'network-error-view',
       component: NetworkErrorView
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      // If there is a saved position (e.g., using browser back/forward buttons)
+      return savedPosition;
+    } else if (to.hash) {
+      // If navigating to a specific anchor on the page (using hash)
+      return {
+        el: to.hash,
+        behavior: 'smooth',
+      };
+    } else {
+      // Default scroll to top behavior
+      return { top: 0, behavior: 'smooth' };
+    }
+  }
 });
 
 router.beforeEach(() => {
