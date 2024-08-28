@@ -22,3 +22,4 @@ export default {
     return apiClient.get(`/countries?_limit=${perPage}&_page=${page}`)
   }
 }
+
