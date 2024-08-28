@@ -21,36 +21,56 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="country" class="container mx-auto py-8 px-4">
-    <div class="flex items-center justify-between mb-6">
-      <h2 class="text-3xl font-bold text-indigo-700">{{ country.name }} ({{ country.nocCode }})</h2>
-      <img :src="country.flagUrl" :alt="`${country.name} flag`" class="w-12 h-8 object-cover rounded shadow"/>
-    </div>
-    <p class="text-gray-700 mb-6">{{ country.description }}</p>
-    <div class="grid grid-cols-2 gap-4 mb-6">
-      <div class="bg-indigo-100 p-4 rounded-lg">
-        <h3 class="font-semibold text-indigo-700">Medal Count</h3>
-        <p>🥇 Gold: {{ country.gold }}</p>
-        <p>🥈 Silver: {{ country.silver }}</p>
-        <p>🥉 Bronze: {{ country.bronze }}</p>
-        <p class="font-bold">Total: {{ country.total }}</p>
+  <div v-if="country" class="container mx-auto py-8 px-4 max-w-6xl">
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-8 rounded-xl shadow-2xl mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-4xl font-bold mb-2">{{ country.name }}</h2>
+          <p class="text-xl opacity-80">{{ country.nocCode }}</p>
+        </div>
+        <img :src="country.flagUrl" :alt="`${country.name} flag`" class="w-20 h-14 object-cover rounded-lg shadow-md"/>
       </div>
     </div>
-    <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Sports Details</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <div v-for="sport in country.detail" :key="sport.sportName"
-        class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-5 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1 hover:scale-105">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="font-bold text-xl">{{ sport.sportName }}</h3>
-          <span class="text-2xl">{{ sport.medalsUrl }}</span>
+    
+   
+
+    <div class="bg-gray-100 p-6 rounded-lg shadow-lg mb-8">
+      <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Medal Count</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-yellow-100 p-4 rounded-lg text-center">
+          <p class="text-3xl font-bold text-yellow-600">{{ country.gold }}</p>
+          <p class="text-sm text-gray-600">Gold 🥇</p>
         </div>
-        <p class="mt-3 text-sm">
-          <span class="font-semibold">Rank:</span> {{ sport.rank }}
-        </p>
-        <div class="mt-4">
+        <div class="bg-gray-200 p-4 rounded-lg text-center">
+          <p class="text-3xl font-bold text-gray-600">{{ country.silver }}</p>
+          <p class="text-sm text-gray-600">Silver 🥈</p>
+        </div>
+        <div class="bg-orange-100 p-4 rounded-lg text-center">
+          <p class="text-3xl font-bold text-orange-600">{{ country.bronze }}</p>
+          <p class="text-sm text-gray-600">Bronze 🥉</p>
+        </div>
+        <div class="bg-blue-100 p-4 rounded-lg text-center">
+          <p class="text-3xl font-bold text-blue-600">{{ country.total }}</p>
+          <p class="text-sm text-gray-600">Total</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h3 class="text-2xl font-semibold text-indigo-700 mb-6">Sports Details</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div v-for="sport in country.detail" :key="sport.sportName"
+          class="bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-102">
+          <div class="flex items-center justify-between mb-4">
+            <h4 class="font-bold text-xl">{{ sport.sportName }}</h4>
+            <span class="text-3xl">{{ sport.medalsUrl }}</span>
+          </div>
+          <p class="mb-4">
+            <span class="font-semibold">Rank:</span> {{ sport.rank }}
+          </p>
           <RouterLink :to="{ name: 'about' }">
             <button
-              class="w-full bg-white text-indigo-600 font-semibold py-2 px-4 rounded-lg hover:bg-gray-100 transition duration-300">
+              class="w-full bg-white text-indigo-600 font-semibold py-2 px-4 rounded-lg hover:bg-indigo-50 transition duration-300">
               Cheer for Athlete
             </button>
           </RouterLink>

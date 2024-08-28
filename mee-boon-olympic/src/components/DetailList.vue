@@ -9,7 +9,7 @@ const countryId = route.params.id as string;
 const country = ref<Country | null>(null);
 
 onMounted(() => {
-  EventService.getCountry(countryId)
+  EventService.getCountry(Number(countryId))
     .then((response) => {
       country.value = response.data;
     })
@@ -40,26 +40,6 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="mt-8 bg-gray-100 p-6 rounded-lg shadow-lg">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Medal Count</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-yellow-100 p-4 rounded-lg text-center">
-          <p class="text-2xl font-bold text-yellow-600">{{ country.gold }}</p>
-          <p class="text-sm text-gray-600">Gold 🥇</p>
-        </div>
-        <div class="bg-gray-200 p-4 rounded-lg text-center">
-          <p class="text-2xl font-bold text-gray-600">{{ country.silver }}</p>
-          <p class="text-sm text-gray-600">Silver 🥈</p>
-        </div>
-        <div class="bg-orange-100 p-4 rounded-lg text-center">
-          <p class="text-2xl font-bold text-orange-600">{{ country.bronze }}</p>
-          <p class="text-sm text-gray-600">Bronze 🥉</p>
-        </div>
-        <div class="bg-blue-100 p-4 rounded-lg text-center">
-          <p class="text-2xl font-bold text-blue-600">{{ country.total }}</p>
-          <p class="text-sm text-gray-600">Total</p>
-        </div>
-      </div>
-    </div>
+   
   </div>
 </template>
