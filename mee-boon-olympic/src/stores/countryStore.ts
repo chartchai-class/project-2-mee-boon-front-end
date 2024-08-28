@@ -3,11 +3,14 @@ import { defineStore } from 'pinia';
 import EventService from '@/services/EventService';
 import { ref, computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { type Country } from '@/types';
+import { type Country, type Sport, type Detail } from '@/types';
 
 export const useCountryStore = defineStore('country', () => {
   const countries = ref<Country[]>([]);
-  const visibleCountryIds = ref<Set<number>>(new Set());
+  const sports = ref<Sport[]>([]);
+  const details = ref<Detail[]>([]);
+  const currentCountry = ref<Country | null>(null);
+  
   const currentPage = ref(1);
   const countriesPerPage = ref(5);
   const totalCountries = ref(0);
@@ -17,12 +20,24 @@ export const useCountryStore = defineStore('country', () => {
 
   const fetchCountries = async () => {
     try {
-      const response = await EventService.getEvent(); // Fetch all countries
+      const response = await EventService.getEvent();
       countries.value = response.data;
       totalCountries.value = countries.value.length;
     } catch (error) {
       console.error('Error fetching countries:', error);
       router.push({ name: 'network-error-view' });
+    }
+  };
+
+  const fetchCountryDetails = async (countryId: number) => {
+    try {
+      const response = await EventService.getCountry(countryId);
+      currentCountry.value = response.data;
+      // Assume details and sports are part of the country object
+      details.value = response.data.details; 
+      sports.value = response.data.sports;
+    } catch (error) {
+      console.error('Error fetching country details:', error);
     }
   };
 
@@ -36,14 +51,6 @@ export const useCountryStore = defineStore('country', () => {
     return countries.value.slice(start, end);
   });
 
-  const toggleDetails = (id: number) => {
-    if (visibleCountryIds.value.has(id)) {
-      visibleCountryIds.value.delete(id);
-    } else {
-      visibleCountryIds.value.add(id);
-    }
-  };
-
   const changePage = (page: number) => {
     if (page >= 1 && page <= totalPages.value) {
       currentPage.value = page;
@@ -54,7 +61,7 @@ export const useCountryStore = defineStore('country', () => {
   const updateCountriesPerPage = (value: number) => {
     const pageSize = value < 1 ? 1 : value > 15 ? 15 : value;
     countriesPerPage.value = pageSize;
-    currentPage.value = 1; // Reset to first page when page size changes
+    currentPage.value = 1;
     router.push({ query: { page: '1', pageSize: String(pageSize) } });
   };
 
@@ -68,14 +75,16 @@ export const useCountryStore = defineStore('country', () => {
 
   return {
     countries,
-    visibleCountryIds,
+    sports,
+    details,
+    currentCountry,
     currentPage,
     countriesPerPage,
     totalCountries,
     fetchCountries,
+    fetchCountryDetails,
     totalPages,
     paginatedCountries,
-    toggleDetails,
     changePage,
     updateCountriesPerPage,
     syncWithRoute,
