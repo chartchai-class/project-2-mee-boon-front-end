@@ -2,6 +2,7 @@
 import { ref, onMounted, defineProps } from 'vue'
 import { type Country } from '@/types'
 import EventService from '@/services/EventService'
+// import nProgress from 'nprogress';
 
 const event = ref<Country | null>(null)
 const props = defineProps({
@@ -14,10 +15,14 @@ onMounted(() => {
   EventService.getCountry(parseInt(props.id))
     .then((response) => {
       event.value = response.data
+      // nProgress.start()
     })
     .catch((error) => {
       console.log('There was an error!', error)
     })
+    // .finally(() => {
+    //   nProgress.done()
+    // })
 })
 </script>
 

@@ -8,6 +8,8 @@ import OlympicListView from '@/views/event/OlympicListView.vue'
 import EventService from '@/services/EventService'
 import DetailList from '@/components/DetailList.vue'
 import SportList from '@/components/SportList.vue'
+import nProgress from 'nprogress'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -34,7 +36,6 @@ const router = createRouter({
       name: 'detail-view',
       component: OlympicListView,
       props: true,
-      
       children: [
         {
           path: '',
@@ -68,6 +69,14 @@ const router = createRouter({
       component: NetworkErrorView
     }
   ]
+})
+
+router.beforeEach(() => {
+  nProgress.start()
+})
+
+router.afterEach(() => {
+  nProgress.done()
 })
 
 export default router
