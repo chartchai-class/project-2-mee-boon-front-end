@@ -29,12 +29,12 @@ onMounted(() => {
 <template>
   <div v-if="event" class="container mx-auto py-8 px-4">
     <!-- Main Section -->
-    <div class="bg-white p-8 rounded-xl shadow-2xl">
+    <div class="bg-blue-50 p-8 rounded-xl shadow-2xl">
       <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
         <!-- Event Details -->
         <div class="text-center lg:text-left lg:w-1/2">
-          <h1 class="text-5xl font-extrabold text-indigo-700 mb-4">{{ event.name }}</h1>
-          <p class="text-gray-700 text-lg">
+          <h1 class="text-5xl font-extrabold text-blue-700 mb-4">{{ event.name }}</h1>
+          <p class="text-blue-800 text-lg">
             Welcome to the {{ event.name }} detail page. Explore the details and sports involved in
             this grand event.
           </p>
@@ -46,8 +46,8 @@ onMounted(() => {
             :to="{ name: 'country-detail-view' }"
             class="text-lg font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 text-center"
             :class="[$route.name === 'country-detail-view' 
-              ? 'bg-indigo-700 text-white' 
-              : 'bg-white text-indigo-600 border-2 border-indigo-600 hover:bg-indigo-100']"
+              ? 'bg-blue-700 text-white' 
+              : 'bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-100']"
           >
             {{ event.name }} Details
           </router-link>
@@ -56,8 +56,8 @@ onMounted(() => {
             :to="{ name: 'sport-list-view' }"
             class="text-lg font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 text-center"
             :class="[$route.name === 'sport-list-view' 
-              ? 'bg-indigo-700 text-white' 
-              : 'bg-white text-indigo-600 border-2 border-indigo-600 hover:bg-indigo-100']"
+              ? 'bg-blue-700 text-white' 
+              : 'bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-100']"
           >
             Sport List
           </router-link>
