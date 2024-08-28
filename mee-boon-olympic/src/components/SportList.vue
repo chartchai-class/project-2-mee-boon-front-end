@@ -66,7 +66,7 @@ onMounted(() => {
           <p class="mb-4">
             <span class="font-semibold">Rank:</span> {{ sport.rank }}
           </p>
-          <RouterLink :to="{ name: 'about' }">
+          <RouterLink :to="{ name: 'cheer-up' }">
             <button
               class="w-full bg-white text-blue-700 font-semibold py-2 px-4 rounded-lg hover:bg-blue-50 transition duration-300">
               Cheer for Athlete

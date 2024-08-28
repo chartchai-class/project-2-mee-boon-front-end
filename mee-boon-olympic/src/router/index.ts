@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import OlympicHomeView from '@/views/OlympicHomeView.vue';
-import AboutView from '@/views/AboutView.vue';
+import CheerUpView from '@/views/CheerUpView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 import NetworkErrorView from '@/views/NetworkErrorView.vue';
 import { useCountryStore } from '@/stores/countryStore';
@@ -19,9 +19,9 @@ const router = createRouter({
       props: (route) => ({ page: parseInt(route.query.page?.toString() || '1') })
     },
     {
-      path: '/about',
-      name: 'about',
-      component: AboutView
+      path: '/CheerUp',
+      name: 'cheer-up',
+      component: CheerUpView
     },
     {
       path: '/countries/:id',
