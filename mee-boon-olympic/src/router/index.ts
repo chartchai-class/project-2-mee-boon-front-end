@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import OlympicHomeView from '@/views/OlympicHomeView.vue'
 import AboutView from '@/views/AboutView.vue'
-import DetailView from '@/views/DetailView.vue'
+import OlympicListView from '@/views/OlympicListView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import NetworkErrorView from '@/views/NetworkErrorView.vue'
 const router = createRouter({
@@ -18,10 +18,11 @@ const router = createRouter({
       path: '/about',
       name: 'about',
       component: AboutView
-    },{
+    },
+    {
       path: '/countries/:id',
       name: 'detail-view',
-      component: DetailView,
+      component: OlympicListView,
       props: true
     },
     {
