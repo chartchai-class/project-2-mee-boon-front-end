@@ -5,7 +5,7 @@ const route = useRoute()
 
 const links = [
   { to: '/', label: 'Medal Table' },
-  { to: '/about', label: 'Cheer up!' }
+  { to: '/CheerUp', label: 'Cheer up!' }
 ]
 </script>
 
