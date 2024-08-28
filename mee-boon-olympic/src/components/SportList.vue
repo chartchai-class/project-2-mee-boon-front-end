@@ -22,7 +22,7 @@ onMounted(() => {
 
 <template>
   <div v-if="country" class="container mx-auto py-8 px-4 max-w-6xl">
-    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-8 rounded-xl shadow-2xl mb-8">
+    <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-8 rounded-xl shadow-2xl mb-8">
       <div class="flex items-center justify-between">
         <div>
           <h2 class="text-4xl font-bold mb-2">{{ country.name }}</h2>
@@ -32,10 +32,8 @@ onMounted(() => {
       </div>
     </div>
     
-   
-
-    <div class="bg-gray-100 p-6 rounded-lg shadow-lg mb-8">
-      <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Medal Count</h3>
+    <div class="bg-blue-50 p-6 rounded-lg shadow-lg mb-8">
+      <h3 class="text-2xl font-semibold text-blue-800 mb-4">Medal Count</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div class="bg-yellow-100 p-4 rounded-lg text-center">
           <p class="text-3xl font-bold text-yellow-600">{{ country.gold }}</p>
@@ -57,10 +55,10 @@ onMounted(() => {
     </div>
     
     <div class="bg-white p-6 rounded-lg shadow-lg">
-      <h3 class="text-2xl font-semibold text-indigo-700 mb-6">Sports Details</h3>
+      <h3 class="text-2xl font-semibold text-blue-800 mb-6">Sports Details</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div v-for="sport in country.detail" :key="sport.sportName"
-          class="bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-102">
+          class="bg-gradient-to-br from-blue-500 to-blue-700 text-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-102">
           <div class="flex items-center justify-between mb-4">
             <h4 class="font-bold text-xl">{{ sport.sportName }}</h4>
             <span class="text-3xl">{{ sport.medalsUrl }}</span>
@@ -70,7 +68,7 @@ onMounted(() => {
           </p>
           <RouterLink :to="{ name: 'about' }">
             <button
-              class="w-full bg-white text-indigo-600 font-semibold py-2 px-4 rounded-lg hover:bg-indigo-50 transition duration-300">
+              class="w-full bg-white text-blue-700 font-semibold py-2 px-4 rounded-lg hover:bg-blue-50 transition duration-300">
               Cheer for Athlete
             </button>
           </RouterLink>
