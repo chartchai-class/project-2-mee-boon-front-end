@@ -14,7 +14,7 @@ Mee-Boon Olympic Team
 
 ## Deployed Website
 You can access the deployed website here:
-https://project-1-mee-boon.vercel.app/?fbclid=IwY2xjawE8H91leHRuA2FlbQIxMAABHS49-0QuD264E4X8Pjk1Pilk8r5NYBXLN8sBa09Avsz_kEPUfgpQwTwBtw_aem_Q36Y0GMTv_ohbZPPzNwl2g
+https://project-mee-boon.vercel.app/
 ## Project Description
 Mee-Boon Olympic is a web application developed as part of the SE331 Component-Based Software Development course. The application provides a detailed Olympic report, showcasing the medal counts by country, detailed country information, and a list of sports in which each country has received medals.
 
