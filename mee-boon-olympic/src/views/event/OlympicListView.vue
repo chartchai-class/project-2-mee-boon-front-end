@@ -1,29 +1,30 @@
 <script setup lang="ts">
-import { ref, onMounted, defineProps } from 'vue'
-import { type Country } from '@/types'
-import EventService from '@/services/EventService'
+import { ref, onMounted, defineProps } from 'vue';
+import { type Country } from '@/types';
+import EventService from '@/services/EventService';
 // import nProgress from 'nprogress';
 
-const event = ref<Country | null>(null)
+const event = ref<Country | null>(null);
 const props = defineProps({
   id: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
+
 onMounted(() => {
   EventService.getCountry(parseInt(props.id))
     .then((response) => {
-      event.value = response.data
-      // nProgress.start()
+      event.value = response.data;
+      // nProgress.start();
     })
     .catch((error) => {
-      console.log('There was an error!', error)
-    })
-    // .finally(() => {
-    //   nProgress.done()
-    // })
-})
+      console.log('There was an error!', error);
+    });
+  // .finally(() => {
+  //   nProgress.done();
+  // });
+});
 </script>
 
 <template>
@@ -35,8 +36,7 @@ onMounted(() => {
         <div class="text-center lg:text-left lg:w-1/2">
           <h1 class="text-5xl font-extrabold text-blue-700 mb-4">{{ event.name }}</h1>
           <p class="text-blue-800 text-lg">
-            Welcome to the {{ event.name }} detail page. Explore the details and sports involved in
-            this grand event.
+            Welcome to the {{ event.name }} detail page. Explore the details and sports involved in this grand event.
           </p>
         </div>
 

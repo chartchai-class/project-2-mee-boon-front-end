@@ -12,10 +12,11 @@ const links = [
 <template>
   <div class="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100">
     <header class="bg-white shadow-sm p-6">
-      <h1 class="text-3xl font-bold text-center text-indigo-800">Mee Boon Olympic</h1>
+      <h1 class="text-2xl md:text-3xl font-bold text-center text-indigo-800">Mee Boon Olympic</h1>
     </header>
-    <div class="flex-grow flex p-6">
-      <nav class="w-64 bg-white rounded-lg shadow-md p-6 mr-6">
+    <div class="flex-grow flex flex-col md:flex-row p-6">
+      <!-- Navigation -->
+      <nav class="md:w-64 bg-white rounded-lg shadow-md p-6 mb-6 md:mb-0 md:mr-6">
         <div class="space-y-4">
           <RouterLink
             v-for="link in links"
@@ -28,11 +29,15 @@ const links = [
           </RouterLink>
         </div>
       </nav>
+
+      <!-- Main Content -->
       <main class="flex-grow bg-white rounded-lg shadow-md p-6">
         <RouterView />
       </main>
     </div>
-    <footer class="bg-white shadow-sm p-4 mt-6">
+    
+    <!-- Footer -->
+    <footer class="bg-white shadow-sm p-4">
       <p class="text-center text-sm text-gray-600">&copy; 2024 Mee Boon Olympic. All rights reserved.</p>
     </footer>
   </div>

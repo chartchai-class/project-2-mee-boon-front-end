@@ -28,7 +28,7 @@ onMounted(() => {
           <h2 class="text-4xl font-bold mb-2">{{ country.name }}</h2>
           <p class="text-xl opacity-80">{{ country.nocCode }}</p>
         </div>
-        <img :src="country.flagUrl" :alt="`${country.name} flag`" class="w-20 h-14 object-cover rounded-lg shadow-md"/>
+        <img :src="country.flagUrl" :alt="`${country.name} flag`" class="w-20 h-14 md:w-32 md:h-24 object-cover rounded-lg shadow-md"/>
       </div>
     </div>
     
@@ -36,25 +36,25 @@ onMounted(() => {
       <h3 class="text-2xl font-semibold text-blue-800 mb-4">Medal Count</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div class="bg-yellow-100 p-4 rounded-lg text-center">
-          <p class="text-3xl font-bold text-yellow-600">{{ country.gold }}</p>
+          <p class="text-3xl md:text-4xl font-bold text-yellow-600">{{ country.gold }}</p>
           <p class="text-sm text-gray-600">Gold 🥇</p>
         </div>
         <div class="bg-gray-200 p-4 rounded-lg text-center">
-          <p class="text-3xl font-bold text-gray-600">{{ country.silver }}</p>
+          <p class="text-3xl md:text-4xl font-bold text-gray-600">{{ country.silver }}</p>
           <p class="text-sm text-gray-600">Silver 🥈</p>
         </div>
         <div class="bg-orange-100 p-4 rounded-lg text-center">
-          <p class="text-3xl font-bold text-orange-600">{{ country.bronze }}</p>
+          <p class="text-3xl md:text-4xl font-bold text-orange-600">{{ country.bronze }}</p>
           <p class="text-sm text-gray-600">Bronze 🥉</p>
         </div>
         <div class="bg-blue-100 p-4 rounded-lg text-center">
-          <p class="text-3xl font-bold text-blue-600">{{ country.total }}</p>
+          <p class="text-3xl md:text-4xl font-bold text-blue-600">{{ country.total }}</p>
           <p class="text-sm text-gray-600">Total</p>
         </div>
       </div>
     </div>
     
-    <div class="bg-white p-6 rounded-lg shadow-lg">
+    <div v-if="country.detail && country.detail.length" class="bg-white p-6 rounded-lg shadow-lg">
       <h3 class="text-2xl font-semibold text-blue-800 mb-6">Sports Details</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div v-for="sport in country.detail" :key="sport.sportName"
@@ -74,6 +74,9 @@ onMounted(() => {
           </RouterLink>
         </div>
       </div>
+    </div>
+    <div v-else class="bg-white p-6 rounded-lg shadow-lg">
+      <p class="text-center text-gray-600">No sports details available for this country.</p>
     </div>
   </div>
 </template>
