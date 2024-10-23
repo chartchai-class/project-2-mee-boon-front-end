@@ -9,6 +9,10 @@ import DetailList from '@/components/DetailList.vue';
 import SportList from '@/components/SportList.vue';
 import nProgress from 'nprogress';
 
+import LoginView from '@/views/LoginView.vue';
+import RegisterView from '@/views/RegisterView.vue';
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -22,6 +26,15 @@ const router = createRouter({
       path: '/CheerUp',
       name: 'cheer-up',
       component: CheerUpView
+    },
+    {
+      path: '/Register',
+      name: 'register',
+      component: RegisterView
+    },
+    { path: '/Login', 
+      name: 'login', 
+      component: LoginView
     },
     {
       path: '/countries/:id',

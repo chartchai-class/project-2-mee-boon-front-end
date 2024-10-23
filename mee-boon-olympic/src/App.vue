@@ -6,7 +6,9 @@ const route = useRoute()
 
 const links = [
   { to: '/', label: 'Medal Table' },
-  { to: '/CheerUp', label: 'Cheer up!' }
+  { to: '/CheerUp', label: 'Cheer up!' },
+  { to: '/Register', label: 'Register'},
+  { to: '/Longin', label: 'Longin'}
 ]
 </script>
 
@@ -72,9 +74,11 @@ const links = [
 
       <!-- Login/Register Section -->
       <div class="p-4 border-t border-gray-200">
+        <RouterLink to="/Register">
         <button class="w-full py-2 px-4 bg-gray-100 text-sm text-gray-600 rounded">
           Please Login / Registration Before Comments
         </button>
+      </RouterLink>
       </div>
     </aside>
   </div>
