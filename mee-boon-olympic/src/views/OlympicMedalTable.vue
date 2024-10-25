@@ -1,20 +1,48 @@
+<!--<script setup lang="ts">-->
+<!--import { onMounted, watchEffect } from 'vue'-->
+<!--import { useCountryStore } from '@/stores/countryStore'-->
+<!--import { useRoute } from 'vue-router'-->
+
+<!--const countryStore = useCountryStore()-->
+<!--const route = useRoute()-->
+
+<!--onMounted(() => {-->
+<!--  countryStore.syncWithRoute()-->
+<!--})-->
+
+<!--watchEffect(() => {-->
+<!--  countryStore.syncWithRoute()-->
+<!--})-->
+<!--</script>-->
 <script setup lang="ts">
-import { onMounted, watchEffect } from 'vue'
-import { useCountryStore } from '@/stores/countryStore'
-import { useRoute } from 'vue-router'
+import { onMounted, watch } from 'vue';
+import { useCountryStore } from '@/stores/countryStore';
+import { useRouter, useRoute } from 'vue-router';
 
-const countryStore = useCountryStore()
-const route = useRoute()
+const countryStore = useCountryStore();
+const router = useRouter();
+const route = useRoute();
 
-onMounted(() => {
-  countryStore.syncWithRoute()
-})
+onMounted(async () => {
+  await countryStore.fetchCountries();
 
-watchEffect(() => {
-  countryStore.syncWithRoute()
-})
+  // ซิงค์ค่าจาก route ถ้าจำเป็น
+  const page = parseInt(route.query.page as string) || 1;
+  const pageSize = parseInt(route.query.pageSize as string) || countryStore.countriesPerPage;
+  countryStore.currentPage = page;
+  countryStore.countriesPerPage = pageSize;
+});
+
+watch(
+    () => route.query,
+    () => {
+      const page = parseInt(route.query.page as string) || 1;
+      const pageSize = parseInt(route.query.pageSize as string) || countryStore.countriesPerPage;
+      countryStore.currentPage = page;
+      countryStore.countriesPerPage = pageSize;
+    }
+);
 </script>
-
 <template>
   <div class="min-h-screen bg-gray-50">
     <div class="max-w-5xl mx-auto px-4 py-8">
@@ -25,31 +53,31 @@ watchEffect(() => {
         >
           <li>
             <div class="relative mx-auto text-gray-600">
-              <input
-                class="border border-gray-300 placeholder-current h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none dark:bg-gray-500 dark:border-gray-50 dark:text-gray-200"
-                type="search"
-                name="search"
-                placeholder="Search"
-              />
+<!--              <input-->
+<!--                class="border border-gray-300 placeholder-current h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none dark:bg-gray-500 dark:border-gray-50 dark:text-gray-200"-->
+<!--                type="search"-->
+<!--                name="search"-->
+<!--                placeholder="Search"-->
+<!--              />-->
 
               <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
-                <svg
-                  class="text-gray-600 dark:text-gray-200 h-4 w-4 fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  version="1.1"
-                  x="0px"
-                  y="0px"
-                  viewBox="0 0 56.966 56.966"
-                  style="enable-background: new 0 0 56.966 56.966"
-                  xml:space="preserve"
-                  width="512px"
-                  height="512px"
-                >
-                  <path
-                    d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z"
-                  />
-                </svg>
+<!--                <svg-->
+<!--                  class="text-gray-600 dark:text-gray-200 h-4 w-4 fill-current"-->
+<!--                  xmlns="http://www.w3.org/2000/svg"-->
+<!--                  xmlns:xlink="http://www.w3.org/1999/xlink"-->
+<!--                  version="1.1"-->
+<!--                  x="0px"-->
+<!--                  y="0px"-->
+<!--                  viewBox="0 0 56.966 56.966"-->
+<!--                  style="enable-background: new 0 0 56.966 56.966"-->
+<!--                  xml:space="preserve"-->
+<!--                  width="512px"-->
+<!--                  height="512px"-->
+<!--                >-->
+<!--                  <path-->
+<!--                    d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z"-->
+<!--                  />-->
+<!--                </svg>-->
               </button>
             </div>
           </li>
