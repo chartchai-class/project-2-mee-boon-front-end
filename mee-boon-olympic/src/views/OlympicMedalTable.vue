@@ -1,3 +1,4 @@
+OlymTable
 <script setup lang="ts">
 import { onMounted, watch } from 'vue';
 import { useCountryStore } from '@/stores/countryStore';

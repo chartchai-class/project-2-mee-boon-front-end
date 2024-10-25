@@ -1,3 +1,4 @@
+sport list
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
