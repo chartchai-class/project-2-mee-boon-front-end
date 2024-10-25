@@ -1,16 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import OlympicHomeView from '@/views/OlympicHomeView.vue';
-import CheerUpView from '@/views/CheerUpView.vue';
+import CheerUpView from '@/components/CheerUp.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 import NetworkErrorView from '@/views/NetworkErrorView.vue';
-import { useCountryStore } from '@/stores/countryStore';
-import OlympicListView from '@/views/event/OlympicListView.vue';
-import DetailList from '@/components/DetailList.vue';
 import SportList from '@/components/SportList.vue';
 import nProgress from 'nprogress';
-
+import CountryView from '@/views/CountryView.vue';
 import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
+import DetailList from '@/components/DetailList.vue';
 
 
 const router = createRouter({
@@ -23,11 +21,6 @@ const router = createRouter({
       props: (route) => ({ page: parseInt(route.query.page?.toString() || '1') })
     },
     {
-      path: '/CheerUp',
-      name: 'cheer-up',
-      component: CheerUpView
-    },
-    {
       path: '/Register',
       name: 'register',
       component: RegisterView
@@ -35,45 +28,25 @@ const router = createRouter({
     { path: '/Login', 
       name: 'login', 
       component: LoginView
+    },    
+    {
+      path: '/country/:id',
+      name: 'country-view',
+      component: CountryView,
+      props: true,
     },
     {
-      path: '/countries/:id',
-      name: 'detail-view',
-      component: OlympicListView,
+      path: '/country/:id/sports',
+      name: 'sport-list-view',
+      component: SportList,
       props: true,
-      beforeEnter: async (to, from, next) => {
-        const countryStore = useCountryStore();
-        const countryId = parseInt(to.params.id as string);
-
-        // Fetch the country if not already loaded
-        if (!countryStore.countries.length) {
-          await countryStore.fetchCountries();
-        }
-
-        // Check if the country exists
-        const countryExists = countryStore.countries.some(country => country.id === countryId);
-
-        if (countryExists) {
-          next(); // Allow navigation
-        } else {
-          next({ name: '404-resource-view', params: { resource: 'Country' } }); // Redirect to 404
-        }
-      },
-      children: [
-        {
-          path: '',
-          name: 'country-detail-view',
-          component: DetailList,
-          props: true
-        },
-        {
-          path: 'sportList',
-          name: 'sport-list-view',
-          component: SportList,
-          props: true
-        }
-      ]
     },
+    {
+      path: '/cheer-up',
+      name: 'cheer-up-view',
+      component: CheerUpView
+    },
+
     {
       path: '/404/:resource',
       name: '404-resource-view',
