@@ -8,6 +8,11 @@ import OlympicListView from '@/views/event/OlympicListView.vue';
 import DetailList from '@/components/DetailList.vue';
 import SportList from '@/components/SportList.vue';
 import nProgress from 'nprogress';
+import AdminHomeView from '@/views/admin/adminHomeView.vue';
+import EditCountryView from '@/views/admin/EditCountryView.vue';
+import UserListView from '@/views/admin/UserListView.vue';
+import AddCountriesView from '@/views/admin/AddCountriesView.vue';
+import AdminListVeiw from '@/views/admin/AdminListVeiw.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +27,32 @@ const router = createRouter({
       path: '/CheerUp',
       name: 'cheer-up',
       component: CheerUpView
+    },
+    {
+      path: '/Admin',
+      name: 'admin',
+      component: AdminHomeView
+    },
+    {
+      path: '/admin/admin-list',
+      name: 'admin-list',
+      component: AdminListVeiw
+
+    },
+    {
+      path: '/admin/edit-country',
+      name: 'edit-country',
+      component: EditCountryView
+    },
+    {
+      path: '/admin/user-list',
+      name: 'user-list',
+      component: UserListView
+    },
+    {
+      path: '/admin/add-country',
+      name: 'add-country',
+      component: AddCountriesView
     },
     {
       path: '/countries/:id',
