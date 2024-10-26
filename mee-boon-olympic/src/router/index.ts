@@ -10,6 +10,9 @@ import EditCountryView from '@/views/admin/EditCountryView.vue';
 import UserListView from '@/views/admin/UserListView.vue';
 import AddCountriesView from '@/views/admin/AddCountriesView.vue';
 import AdminListVeiw from '@/views/admin/AdminListVeiw.vue';
+import CountryView from '@/views/CountryView.vue';
+import LoginView from '@/views/LoginView.vue';
+import RegisterView from '@/views/RegisterView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,7 +67,7 @@ const router = createRouter({
     {
       path: '/countries/:id',
       name: 'detail-view',
-      component: OlympicListView,
+      component: CountryView,
       props: true,
     },
     {
