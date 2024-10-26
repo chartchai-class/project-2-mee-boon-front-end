@@ -126,9 +126,7 @@ import * as yup from 'yup'
 import { useAuthStore } from '@/stores/auth'
 import { RouterLink } from 'vue-router'
 import InputText from '@/components/InputText.vue'
-import InputText from '@/components/InputText.vue'
-import InputText from '@/components/InputText.vue'
-import InputText from '@/components/InputText.vue'
+
 
 const authStore = useAuthStore()
 const showPassword = ref(false)
