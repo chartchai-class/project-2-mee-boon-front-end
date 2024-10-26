@@ -1,13 +1,11 @@
 @@ -0,0 +1,86 @@
 <script setup lang="ts">
 import { RouterLink, useRoute } from 'vue-router'
-import { useMessageStore } from '@/stores/message.ts';
-import { useAuthStore } from '@/stores/auth.ts';
-// import {mdiAccount} from '@mdi/js'
-// import {mdiLogout} from '@mdi/js'
+// import { useMessageStore } from '@/stores/message.ts';
+// import { useAuthStore } from '@/stores/auth.ts';
 
-const messageStore = useMessageStore();
-const authStore = useAuthStore();
+// const messageStore = useMessageStore();
+// const authStore = useAuthStore();
 const route = useRoute()
 
 const links = [

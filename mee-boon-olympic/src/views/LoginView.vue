@@ -39,7 +39,7 @@
           <div>
             <label class="block text-sm font-medium text-gray-700">Email address</label>
             <div class="mt-1 relative">
-              <input type="email" v-model="email"
+              <InputText type="email" v-model="email"
                 class="block w-full px-4 py-3 rounded-lg border border-gray-200 pl-10 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                 placeholder="Enter your email" />
               <div class="absolute left-3 top-3.5 text-gray-400">
@@ -57,7 +57,7 @@
           <div>
             <label class="block text-sm font-medium text-gray-700">Password</label>
             <div class="mt-1 relative">
-              <input :type="showPassword ? 'text' : 'password'" v-model="password"
+              <InputText :type="showPassword ? 'text' : 'password'" v-model="password"
                 class="block w-full px-4 py-3 rounded-lg border border-gray-200 pl-10 pr-10 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                 placeholder="Enter your password" />
               <div class="absolute left-3 top-3.5 text-gray-400">
@@ -89,7 +89,7 @@
           <!-- Remember Me & Forgot Password -->
           <div class="flex items-center justify-between">
             <div class="flex items-center">
-              <input type="checkbox" v-model="rememberMe"
+              <InputText type="checkbox" v-model="rememberMe"
                 class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
               <label class="ml-2 block text-sm text-gray-700">Remember me</label>
             </div>
@@ -125,6 +125,10 @@ import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
 import { useAuthStore } from '@/stores/auth'
 import { RouterLink } from 'vue-router'
+import InputText from '@/components/InputText.vue'
+import InputText from '@/components/InputText.vue'
+import InputText from '@/components/InputText.vue'
+import InputText from '@/components/InputText.vue'
 
 const authStore = useAuthStore()
 const showPassword = ref(false)

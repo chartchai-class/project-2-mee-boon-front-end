@@ -21,6 +21,15 @@ export interface Sport {
   medelUrl: string
 
 }
+// src/types/index.ts
+export interface User {
+  id?: number
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  profileImage?: string | null
+}
 
 
 
