@@ -25,7 +25,7 @@ export default {
       },
       backgroundColor: {
         skin: { fill: 'var(--color-fill)',
-          'sec': 'var(--color-fill-sec',
+          'button-fill': 'var(--color-button-fill',
           'button-accent': 'var(--color-button-accent)',
           'button-hover': 'var(--color-button-hover-accent)',
           'header-table': 'var(--color-table-header)',

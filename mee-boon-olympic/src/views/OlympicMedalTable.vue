@@ -27,14 +27,13 @@ watch(
 </script>
 
 <template>
-  <div class="min-h-screen bg-skin-fill dark:bg-skin-fill">
+  <div class="min-h-screen">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Header with Responsive Design -->
-<div class="mb-8 py-6 sm:py-8 px-6 sm:px-10 bg-skin-fill-alt dark:bg-skin-sec rounded-lg">
-  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-8">
-    <!-- Left side: Title and Description -->
-    <div>
-      <h1 class="text-2xl sm:text-3xl font-semibold text-skin-base">Olympic Medal Table</h1>
+<div class="mb-8 py-6 sm:py-8 px-6 sm:px-10 bg-skin-fill-alt dark:bg-skin-button-fill rounded-lg">
+  <div class=" flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-8">
+    <div class="">
+      <h1 class="text-2xl sm:text-3xl font-semibold text-skin-base ">Olympic Medal Table</h1>
       <p class="mt-2 text-sm text-skin-second">Track medal counts for participating nations</p>
     </div>
 
