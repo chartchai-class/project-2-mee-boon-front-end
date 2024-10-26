@@ -52,41 +52,7 @@ const links = [
       <RouterView />
     </main>
     
-    <!-- Chat Section -->
-    <aside class="lg:w-80 bg-white rounded-lg shadow-md">
-      <!-- Chat Header -->
-      <div class="bg-gray-100 p-4 rounded-t-lg">
-        <h2 class="font-bold text-gray-800">CHEER UP CHAT</h2>
-      </div>
-      
-      <!-- Chat Messages -->
-      <div class="p-4 space-y-3">
-        <div v-for="(message, index) in chatMessages" 
-             :key="index" 
-             class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded">
-          <div class="flex-shrink-0">
-            <div class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center">
-              <span class="text-xs">👤</span>
-            </div>
-          </div>
-          <div class="flex-grow">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-medium text-gray-800">{{ message.user }}</span>
-            </div>
-            <p class="text-sm text-gray-600">{{ message.text }}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Login/Register Section -->
-      <div class="p-4 border-t border-gray-200">
-        <RouterLink to="/Register">
-        <button class="w-full py-2 px-4 bg-gray-100 text-sm text-gray-600 rounded">
-          Please Login / Registration Before Comments
-        </button>
-      </RouterLink>
-      </div>
-    </aside>
+    
   </div>
     
     <!-- Footer -->
