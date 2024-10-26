@@ -5,11 +5,11 @@ import NotFoundView from '@/views/NotFoundView.vue';
 import NetworkErrorView from '@/views/NetworkErrorView.vue';
 import SportList from '@/components/SportList.vue';
 import nProgress from 'nprogress';
-import CountryView from '@/views/CountryView.vue';
-import LoginView from '@/views/LoginView.vue';
-import RegisterView from '@/views/RegisterView.vue';
-import DetailList from '@/components/DetailList.vue';
-
+import AdminHomeView from '@/views/admin/adminHomeView.vue';
+import EditCountryView from '@/views/admin/EditCountryView.vue';
+import UserListView from '@/views/admin/UserListView.vue';
+import AddCountriesView from '@/views/admin/AddCountriesView.vue';
+import AdminListVeiw from '@/views/admin/AdminListVeiw.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,9 +36,35 @@ const router = createRouter({
       props: true,
     },
     {
-      path: '/country/:id/sports',
-      name: 'sport-list-view',
-      component: SportList,
+      path: '/Admin',
+      name: 'admin',
+      component: AdminHomeView
+    },
+    {
+      path: '/admin/admin-list',
+      name: 'admin-list',
+      component: AdminListVeiw
+
+    },
+    {
+      path: '/admin/edit-country',
+      name: 'edit-country',
+      component: EditCountryView
+    },
+    {
+      path: '/admin/user-list',
+      name: 'user-list',
+      component: UserListView
+    },
+    {
+      path: '/admin/add-country',
+      name: 'add-country',
+      component: AddCountriesView
+    },
+    {
+      path: '/countries/:id',
+      name: 'detail-view',
+      component: OlympicListView,
       props: true,
     },
     {
