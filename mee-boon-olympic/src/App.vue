@@ -2,6 +2,8 @@
 import { RouterLink, useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
 
+// const messageStore = useMessageStore();
+// const authStore = useAuthStore();
 const route = useRoute()
 const isDark = ref(false)
 

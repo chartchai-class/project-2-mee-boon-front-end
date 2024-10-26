@@ -15,14 +15,14 @@ export const useAuthStore = defineStore('auth', {
     token: null as string | null,
     // user: null as Organizer | null
   }),
-  // getters: {
-  //   currentUserName(): string {
-  //     return this.user?.name || ''
-  //   },
-  //   isAdmin(): boolean {
-  //     return this.user?.roles.includes('ROLE_ADMIN') || false
-  //   }
-  // },
+  getters: {
+    currentUserName(): string {
+      return this.user?.name || ''
+    },
+    isAdmin(): boolean {
+      return this.user?.roles.includes('ROLE_ADMIN') || false
+    }
+  },
   actions: {
     login(email: string, password: string) {
       return apiClient
@@ -34,6 +34,7 @@ export const useAuthStore = defineStore('auth', {
           this.token = response.data.access_token
           this.user = response.data.user
           localStorage.setItem('access_token',this.token as string)
+          axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
           localStorage.setItem('user', JSON.stringify(this.user))
           return response
         })
@@ -54,7 +55,7 @@ export const useAuthStore = defineStore('auth', {
     logout() {
       console.log('logout')
       this.token = null
-      // this.user = null
+      this.user = null
       localStorage.removeItem('access_token')
       localStorage.removeItem('user')
     }
