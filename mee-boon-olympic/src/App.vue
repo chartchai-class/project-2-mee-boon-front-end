@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
-
+import BackBTN from './components/BackBTN.vue';
 // const messageStore = useMessageStore();
 // const authStore = useAuthStore();
 const route = useRoute()
@@ -113,11 +113,14 @@ onMounted(() => {
           </a>
         </div>
       </div>
-    </nav>
+    </nav>      
+
+
 
     <!-- Main Content -->
     <main class="flex-grow">
       <RouterView />
+
     </main>
 
     <!-- Footer -->
