@@ -1,6 +1,6 @@
 // tailwind.config.js
 /** @type {import('tailwindcss').Config} */
-import colors from 'tailwindcss/colors';
+
 export default {
   darkMode: 'class', // Enable class-based dark mode
   content: [
@@ -9,31 +9,39 @@ export default {
     
   ],
   theme: {
-    screens: {
-      sm: '480px',
-      md: '768px',
-      lg: '976px',
-      xl: '1440px',
-    },
-    colors: {
-      gray: colors.gray,
-      blue: colors.indigo,
-      red: colors.rose,
-      pink: colors.fuchsia,
-    },
-    fontFamily: {
-      sans: ['Poppins', 'sans-serif'],
-      serif: ['Poppins', 'serif'],
-    },
+    
     extend: {
-      spacing: {
-        '128': '32rem',
-        '144': '36rem',
+      textColor: {
+        skin: {
+          base: 'var(--color-text-base)',
+          second: 'var(--color-text-second)',
+          muted: 'var(--color-text-muted)',
+          inverted: 'var(--color-text-inverted)',
+          silver: 'var(--color-text-silver)',
+          bronze: 'var(--color-text-bronze)',
+          gold: 'var(--color-text-gold)',
+          headTable: 'var(--color-table-header-text)'
+        },
       },
-      borderRadius: {
-        '4xl': '2rem',
-      }
-    }
+      backgroundColor: {
+        skin: { fill: 'var(--color-fill)',
+          'sec': 'var(--color-fill-sec',
+          'button-accent': 'var(--color-button-accent)',
+          'button-hover': 'var(--color-button-hover-accent)',
+          'header-table': 'var(--color-table-header)',
+          'row': 'var(--color-table-row)',
+          'row-alt': 'var(--color-table-row-alt)',
+          'row-hover': 'var(--color-table-row-hover)'
+        },
+      },
+      border: {
+        skin: { base: 'var(--color-boder-base)',
+          'alt': 'var(--color-boder-alt)',
+          'table': 'var(--color-boder-table)'
+          
+        }
+      },
   },
   plugins: [],
+}
 }

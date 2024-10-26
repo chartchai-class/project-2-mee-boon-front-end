@@ -1,6 +1,52 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-h1 {
-  @apply text-4xl mb-8;
+@layer base{
+:root {
+  /* สีข้อความ */
+  --color-text-base: #1E293B;        /* สีหลักสำหรับข้อความทั่วไป, หัวข้อ */
+  --color-text-second: #334155;      /* ข้อความรอง, หัวข้อย่อย */
+  --color-text-muted: #64748B;       /* ข้อความที่ไม่เน้น, placeholder */
+  --color-text-inverted: #F8FAFC;    /* ข้อความบนพื้นหลังเข้ม, ปุ่ม */
+  --color-text-gold: #F59E0B;        
+  --color-text-silver: #94A3B8;     
+  --color-text-bronze: #D97706;      
+  --color-fill: #F1F5F9;             
+  --color-fill-alt: #FFFFFF;         
+  --color-button-accent: #3B82F6;
+  --color-button-hover-accent: #2563EB;
+  --color-border-base: #E2E8F0; 
+  --color-boder-second: #CBD5E1;
+
+  --color-table-header: #F8FAFC;     /* พื้นหลังส่วนหัวตาราง */
+    --color-table-header-text: #1E293B; /* ข้อความส่วนหัวตาราง */
+    --color-table-row: #FFFFFF;        /* พื้นหลังแถวปกติ */
+    --color-table-row-alt: #F8FAFC;    /* พื้นหลังแถวสลับ */
+    --color-table-hover: #F1F5F9;      /* พื้นหลังเมื่อ hover */
+    --color-table-border: #E2E8F0;     /* สีเส้นขอบตาราง */
+}
+
+.dark {
+  --color-text-base: #F8FAFC;        /* สีหลักสำหรับข้อความทั่วไป */
+  --color-text-second: #E2E8F0;      /* ข้อความรอง */
+  --color-text-muted: #94A3B8;      
+  --color-text-inverted: #1E293B;    /* ข้อความบนพื้นหลังสว่าง */
+  --color-text-gold: #FBBF24;        
+  --color-text-silver: #CBD5E1;    
+  --color-text-bronze: #FB923C;      
+  --color-fill: #0F172A;          
+  --color-fill-sec: #1E293B;      
+  --color-button-accent: #3B82F6;   
+  --color-button-hover-accent: #60A5FA; 
+  --color-border-base: #334155;   
+  --color-boder-second: #475569;   
+
+  --color-table-header: #1E293B;     /* พื้นหลังส่วนหัวตาราง */
+    --color-table-header-text: #F8FAFC; /* ข้อความส่วนหัวตาราง */
+    --color-table-row: #0F172A;        /* พื้นหลังแถวปกติ */
+    --color-table-row-alt: #1E293B;    /* พื้นหลังแถวสลับ */
+    --color-table-hover: #334155;      /* พื้นหลังเมื่อ hover */
+    --color-table-border: #334155;     /* สีเส้นขอบตาราง */
+}
 }

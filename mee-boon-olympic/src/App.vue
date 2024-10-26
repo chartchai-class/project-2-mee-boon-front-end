@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { RouterLink, useRoute } from 'vue-router'
+import { ref, onMounted } from 'vue'
 
 const route = useRoute()
+const isDark = ref(false)
 
 const links = [
   { to: '/', label: 'Medal Table' },
@@ -10,20 +12,43 @@ const links = [
   { to: '/Longin', label: 'Longin' }
 ]
 
+// Theme functions
+const initTheme = () => {
+  const savedTheme = localStorage.getItem('theme')
+  if (savedTheme) {
+    isDark.value = savedTheme === 'dark'
+  } else {
+    isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
+  }
+  applyTheme()
+}
+
+const toggleTheme = () => {
+  isDark.value = !isDark.value
+  applyTheme()
+  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+}
+
+const applyTheme = () => {
+  document.documentElement.classList.toggle('dark', isDark.value)
+}
+
+onMounted(() => {
+  initTheme()
+})
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100">
-    <nav
-      class="relative px-4 py-2 flex justify-between items-center bg-white dark:bg-gray-800 border-b-2 dark:border-gray-600"
-    >
-      <a class="text-2xl font-bold text-indigo-800 dark:text-white" href="#">
+  <div class="min-h-screen flex flex-col bg-skin-fill dark:bg-skin-fill">
+    <nav class="relative px-4 py-2 flex justify-between items-center bg-skin-fill-alt dark:bg-skin-sec border-b border-skin-base">
+      <a class="text-2xl font-bold text-skin-base" href="#">
         MEEBOON MEEVASANA OLYMPIC
       </a>
 
+      <!-- Mobile Menu Button -->
       <div class="lg:hidden">
         <button
-          class="navbar-burger flex items-center text-indigo-600 dark:text-gray-100 p-1"
+          class="navbar-burger flex items-center text-skin-base p-1"
           id="navbar_burger"
         >
           <svg
@@ -37,41 +62,50 @@ const links = [
         </button>
       </div>
 
-      <div class="hidden lg:flex">
+      <!-- Desktop Menu -->
+      <div class="hidden lg:flex items-center gap-4">
+        <!-- Theme Toggle Button -->
         <button
-          id="theme-toggle"
-          type="button"
-          class="hidden lg:inline-block lg:ml-auto py-1.5 px-3 m-1 text-center bg-gray-100 border border-gray-300 rounded-md text-black hover:bg-gray-100 dark:text-gray-300 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700"
+          @click="toggleTheme"
+          class="p-2 rounded-lg bg-skin-button-accent hover:bg-skin-button-hover text-skin-inverted transition-colors duration-200"
         >
+          <!-- Moon Icon (Dark Mode) -->
           <svg
-            id="theme-toggle-dark-icon"
-            class="w-5 h-6 hidden"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-          </svg>
-          <svg
-            id="theme-toggle-light-icon"
-            class="w-5 h-6 hidden"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
+            v-if="!isDark"
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
             <path
-              d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-            ></path>
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            />
+          </svg>
+          <!-- Sun Icon (Light Mode) -->
+          <svg
+            v-else
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            />
           </svg>
         </button>
 
+        <!-- Sign In Button -->
         <div>
-          <span class="hidden" id="util_data" data="{{ json_encode($util_data) }}"></span>
           <a
-            class="py-1.5 px-3 m-1 text-center bg-gray-100 border border-gray-300 rounded-md text-black hover:bg-gray-100 dark:text-gray-300 dark:bg-gray-700 hidden lg:inline-block"
-            href="https://tailwindflex.com/login"
+            href="#"
+            class="py-1.5 px-3 m-1 text-center bg-skin-button-accent hover:bg-skin-button-hover text-skin-inverted font-medium rounded-md border border-skin-base hidden lg:inline-block transition-colors duration-200"
           >
             Sign In
           </a>
@@ -79,42 +113,22 @@ const links = [
       </div>
     </nav>
 
-    <!-- <div class="flex-grow flex flex-col md:flex-row p-6">
-       Main Content 
-      <main class="flex-grow bg-white rounded-lg shadow-md p-6">
-        <RouterView />
-      </main>
-      
-       Navigation 
-      <nav class="md:w-64 bg-white rounded-lg shadow-md p-6 mb-6 md:mb-0 md:mr-6">
-        <div class="space-y-4">
-          <RouterLink
-            v-for="link in links"
-            :key="link.to"
-            :to="link.to"
-            class="block py-2 px-4 rounded-md transition-colors duration-200"
-            :class="route.path === link.to ? 'bg-indigo-600 text-white font-medium' : 'text-gray-700 hover:bg-indigo-100'"
-          >
-            {{ link.label }}
-          </RouterLink>
-        </div>
-      </nav>
-    </div> -->
-
-    <!-- cheer up -->
-    <div>
-      <!-- Main Content -->
-      <!-- <main class="flex-grow bg-white rounded-lg shadow-md p-6"> -->
-      <main>
-        <RouterView />
-      </main>
-    </div>
+    <!-- Main Content -->
+    <main class="flex-grow">
+      <RouterView />
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-white shadow-sm p-4 mt-auto">
-      <p class="text-center text-sm text-gray-600">
+    <footer class="bg-skin-fill-alt dark:bg-skin-sec border-t border-skin-base p-4 mt-auto">
+      <p class="text-center text-sm text-skin-muted">
         &copy; 2024 Mee Boon Olympic. All rights reserved.
       </p>
     </footer>
   </div>
 </template>
+
+<style>
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+</style>
