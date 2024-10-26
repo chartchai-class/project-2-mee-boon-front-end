@@ -53,10 +53,14 @@ import { ref, onMounted } from 'vue'
 import { CommentStore } from '@/stores/CommentStore'
 import EventService from '@/services/EventService'
 import { type Country } from '@/types'
+import { UseCommentStore } from '@/stores/CommentStore'
+
+const commentStore = UseCommentStore()
 
 const countries = ref<Country[]>([])
 const selectedCountry = ref('')
-const commentStore = CommentStore()
+const isSubmitted = ref(false)
+const sortOption = ref('newest')
 const newComment = ref('')
 
 const fetchCountries = async () => {
