@@ -1,173 +1,219 @@
 <script setup lang="ts">
-import { onMounted, watchEffect } from 'vue'
-import { useCountryStore } from '@/stores/countryStore'
-import { useRoute } from 'vue-router'
+import { onMounted, watch } from 'vue';
+import { useCountryStore } from '@/stores/countryStore';
+import { useRouter, useRoute } from 'vue-router';
 
-const countryStore = useCountryStore()
-const route = useRoute()
+const countryStore = useCountryStore();
+const router = useRouter();
+const route = useRoute();
 
-onMounted(() => {
-  countryStore.syncWithRoute()
-})
+onMounted(async () => {
+  await countryStore.fetchCountries();
+  const page = parseInt(route.query.page as string) || 1;
+  const pageSize = parseInt(route.query.pageSize as string) || countryStore.countriesPerPage;
+  countryStore.currentPage = page;
+  countryStore.countriesPerPage = pageSize;
+});
 
-watchEffect(() => {
-  countryStore.syncWithRoute()
-})
+watch(
+    () => route.query,
+    () => {
+      const page = parseInt(route.query.page as string) || 1;
+      const pageSize = parseInt(route.query.pageSize as string) || countryStore.countriesPerPage;
+      countryStore.currentPage = page;
+      countryStore.countriesPerPage = pageSize;
+    }
+);
 </script>
 
 <template>
-  <div class="max-w-7xl mx-auto p-5">
-    <div class="mb-4">
-      <label for="countries-per-page" class="block text-sm font-medium text-gray-700">
-        Number of countries per page (1-15):
-      </label>
-      <input
-        id="countries-per-page"
-        type="number"
-        class="mt-1 block w-20 p-2 border border-gray-300 rounded-md"
-        :value="countryStore.countriesPerPage"
-        @input="(e) => countryStore.updateCountriesPerPage(parseInt((e.target as HTMLInputElement)?.value))"
-        min="1"
-        max="15"
-      />
+  <div class="min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Header with Responsive Design -->
+<div class="mb-8 py-6 sm:py-8 px-6 sm:px-10 bg-skin-fill-alt dark:bg-skin-button-fill rounded-lg">
+  <div class=" flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-8">
+    <div class="">
+      <h1 class="text-2xl sm:text-3xl font-semibold text-skin-base ">Olympic Medal Table</h1>
+      <p class="mt-2 text-sm text-skin-second">Track medal counts for participating nations</p>
     </div>
 
-    <!-- Desktop Table View -->
-    <div class="hidden md:block bg-white shadow-md rounded-lg">
-      <div class="overflow-x-auto rounded-lg shadow">
-        <table class="w-full">
-          <thead>
-            <tr class="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-              <th class="py-3 px-4 font-semibold text-sm uppercase tracking-wide text-left w-16">Rank</th>
-              <th class="py-3 px-4 font-semibold text-sm uppercase tracking-wide text-left">Country</th>
-              <th class="py-3 px-4 font-semibold text-sm uppercase tracking-wide text-center w-20">🥇 Gold</th>
-              <th class="py-3 px-4 font-semibold text-sm uppercase tracking-wide text-center w-20">🥈 Silver</th>
-              <th class="py-3 px-4 font-semibold text-sm uppercase tracking-wide text-center w-20">🥉 Bronze</th>
-              <th class="py-3 px-4 font-semibold text-sm uppercase tracking-wide text-center w-20">Total</th>
-              <th class="py-3 px-4 font-semibold text-sm uppercase tracking-wide text-center w-32">Details</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-100">
-            <tr v-for="(country, index) in countryStore.paginatedCountries" 
-                :key="country.id"
-                class="hover:bg-gray-50 transition duration-150">
-              <td class="py-3 px-4 text-sm text-gray-800">
-                {{ (countryStore.currentPage - 1) * countryStore.countriesPerPage + index + 1 }}
-              </td>
-              <td class="py-3 px-4">
-                <div class="flex items-center">
-                  <img :src="country.flagUrl" 
-                       alt="Flag" 
-                       class="w-6 h-6 rounded-full mr-3 border border-gray-300" />
-                  <span class="font-medium text-sm text-gray-700">{{ country.name }}</span>
-                </div>
-              </td>
-              <td class="py-3 px-4 text-center whitespace-nowrap font-semibold text-sm text-yellow-500">
-                {{ country.gold }}
-              </td>
-              <td class="py-3 px-4 text-center whitespace-nowrap font-semibold text-sm text-gray-500">
-                {{ country.silver }}
-              </td>
-              <td class="py-3 px-4 text-center whitespace-nowrap font-semibold text-sm text-amber-600">
-                {{ country.bronze }}
-              </td>
-              <td class="py-3 px-4 text-center whitespace-nowrap font-bold text-sm text-blue-600">
-                {{ country.total }}
-              </td>
-              <td class="py-3 px-4 text-center whitespace-nowrap">
-                <RouterLink
-                  :to="{ name: 'detail-view', params: { id: country.id } }"
-                  class="inline-block px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
-                >
-                  View details
-                </RouterLink>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- Right side: Search -->
+    <div class="relative w-full sm:w-auto">
+      <input
+        type="text"
+        placeholder="Search countries..."
+        class="w-full sm:w-64 pl-10 pr-4 py-2 rounded-lg border border-skin-base bg-skin-fill dark:bg-skin-fill text-skin-base placeholder-skin-muted focus:ring-2 focus:ring-skin-button-accent focus:border-transparent"
+      />
+      <svg
+        class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-skin-muted"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+
+      <!-- Main Content -->
+      <div class="bg-skin-fill-alt dark:bg-skin-sec rounded-lg shadow">
+        <!-- Controls -->
+        <div class="p-4 border-b border-skin-base">
+          <div class="flex items-center space-x-2">
+            <label for="countries-per-page" class="text-sm text-skin-muted">Show</label>
+            <select
+              id="countries-per-page"
+              class="form-select w-20 rounded-md border-skin-base bg-skin-fill-alt dark:bg-skin-sec text-skin-base text-sm"
+              :value="countryStore.countriesPerPage"
+              @change="(e) => countryStore.updateCountriesPerPage(parseInt((e.target as HTMLSelectElement)?.value))"
+            >
+              <option v-for="n in 15" :key="n" :value="n">{{ n }}</option>
+            </select>
+            <span class="text-sm text-skin-muted">entries</span>
+          </div>
+        </div>
+
+        <!-- Desktop Table -->
+        <div class="hidden md:block">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-skin-header-table">
+                <th class="px-6 py-3 text-left text-xs font-medium text-skin-headTable uppercase tracking-wider w-16">#</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-skin-headTable uppercase tracking-wider">Country</th>
+                <th class="px-6 py-3 text-center text-xs font-medium text-skin-gold uppercase tracking-wider w-24">
+                  <span class="inline-flex items-center">Gold 🥇</span>
+                </th>
+                <th class="px-6 py-3 text-center text-xs font-medium text-skin-silver uppercase tracking-wider w-24">
+                  <span class="inline-flex items-center">Silver 🥈</span>
+                </th>
+                <th class="px-6 py-3 text-center text-xs font-medium text-skin-bronze uppercase tracking-wider w-24">
+                  <span class="inline-flex items-center">Bronze 🥉</span>
+                </th>
+                <th class="px-6 py-3 text-center text-xs font-medium text-skin-headTable uppercase tracking-wider w-24">Total</th>
+                <th class="px-6 py-3 text-right text-xs font-medium text-skin-headTable uppercase tracking-wider w-32">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-skin-base">
+              <tr v-for="(country, index) in countryStore.paginatedCountries" 
+                  :key="country.id" 
+                  :class="[
+                    index % 2 === 0 ? 'bg-skin-row-alt' : 'bg-skin-row',
+                    'hover:bg-skin-row-hover'
+                  ]">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-skin-base">
+                  {{ (countryStore.currentPage - 1) * countryStore.countriesPerPage + index + 1 }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <img :src="country.flagUrl" alt="Flag" class="h-6 w-6 rounded-full" />
+                    <span class="ml-3 text-sm text-skin-base">{{ country.name }}</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-skin-gold">{{ country.gold }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-skin-silver">{{ country.silver }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-skin-bronze">{{ country.bronze }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-skin-base">{{ country.total }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-right">
+                  <RouterLink
+                    :to="{ name: 'country-view', params: { id: country.id } }"
+                    class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded text-skin-inverted bg-skin-button-accent hover:bg-skin-button-hover"
+                  >
+                    Details
+                  </RouterLink>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Cards -->
+        <!-- Mobile Cards -->
+<div class="md:hidden divide-y divide-skin-base">
+  <div
+    v-for="(country, index) in countryStore.paginatedCountries"
+    :key="country.id"
+    class="p-4 bg-skin-fill-alt dark:bg-skin-sec"
+  >
+    <div class="flex items-center justify-between mb-3">
+      <div class="flex items-center">
+        <span class="text-sm text-skin-muted mr-3">
+          {{ (countryStore.currentPage - 1) * countryStore.countriesPerPage + index + 1 }}
+        </span>
+        <img :src="country.flagUrl" alt="Flag" class="h-6 w-6 rounded-full" />
+        <span class="ml-2 text-sm font-medium text-skin-base">{{ country.name }}</span>
       </div>
     </div>
 
-    <!-- Mobile Card View -->
-    <div class="md:hidden space-y-4">
-      <div v-for="(country, index) in countryStore.paginatedCountries" 
-           :key="country.id"
-           class="bg-white rounded-lg shadow-md p-4">
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center space-x-3">
-            <span class="text-gray-600 font-medium">
-              #{{ (countryStore.currentPage - 1) * countryStore.countriesPerPage + index + 1 }}
-            </span>
-            <div class="flex items-center">
-              <img :src="country.flagUrl" 
-                   alt="Flag" 
-                   class="w-6 h-6 rounded-full mr-2 border border-gray-300" />
-              <span class="font-medium text-gray-800">{{ country.name }}</span>
+    <div class="grid grid-cols-4 gap-4 mb-3">
+      <div class="text-center">
+        <div class="text-xs text-skin-muted mb-1">Gold</div>
+        <div class="font-medium text-skin-gold">{{ country.gold }}</div>
+      </div>
+      <div class="text-center">
+        <div class="text-xs text-skin-muted mb-1">Silver</div>
+        <div class="font-medium text-skin-silver">{{ country.silver }}</div>
+      </div>
+      <div class="text-center">
+        <div class="text-xs text-skin-muted mb-1">Bronze</div>
+        <div class="font-medium text-skin-bronze">{{ country.bronze }}</div>
+      </div>
+      <div class="text-center">
+        <div class="text-xs text-skin-muted mb-1">Total</div>
+        <div class="font-medium text-skin-base">{{ country.total }}</div>
+      </div>
+    </div>
+
+    <RouterLink
+      :to="{ name: 'country-view', params: { id: country.id } }"
+      class="block w-full text-center px-3 py-2 border border-skin-base text-sm font-medium rounded text-skin-inverted bg-skin-button-accent hover:bg-skin-button-hover transition-colors duration-200"
+    >
+      View Details
+    </RouterLink>
+  </div>
+</div>
+
+        <!-- Pagination -->
+        <div class="px-4 py-3 border-t border-skin-base">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center text-sm text-skin-muted">
+              Showing page {{ countryStore.currentPage }} of {{ countryStore.totalPages }}
+            </div>
+            <div class="flex space-x-2">
+              <button
+                @click="countryStore.currentPage > 1 && $router.push({
+                  query: {
+                    page: String(countryStore.currentPage - 1),
+                    pageSize: String(countryStore.countriesPerPage)
+                  }
+                })"
+                :disabled="countryStore.currentPage <= 1"
+                class="inline-flex items-center px-3 py-2 border border-skin-base text-sm font-medium rounded-md text-skin-base bg-skin-fill-alt hover:bg-skin-row-hover disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Previous
+              </button>
+              <button
+                @click="countryStore.currentPage < countryStore.totalPages && $router.push({
+                  query: {
+                    page: String(countryStore.currentPage + 1),
+                    pageSize: String(countryStore.countriesPerPage)
+                  }
+                })"
+                :disabled="countryStore.currentPage >= countryStore.totalPages"
+                class="inline-flex items-center px-3 py-2 border border-skin-base text-sm font-medium rounded-md text-skin-base bg-skin-fill-alt hover:bg-skin-row-hover disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>
-        
-        <div class="grid grid-cols-4 gap-2 mb-4">
-          <div class="text-center">
-            <div class="text-xs text-gray-500 mb-1">Gold</div>
-            <div class="font-semibold text-yellow-500">{{ country.gold }}</div>
-          </div>
-          <div class="text-center">
-            <div class="text-xs text-gray-500 mb-1">Silver</div>
-            <div class="font-semibold text-gray-500">{{ country.silver }}</div>
-          </div>
-          <div class="text-center">
-            <div class="text-xs text-gray-500 mb-1">Bronze</div>
-            <div class="font-semibold text-amber-600">{{ country.bronze }}</div>
-          </div>
-          <div class="text-center">
-            <div class="text-xs text-gray-500 mb-1">Total</div>
-            <div class="font-bold text-blue-600">{{ country.total }}</div>
-          </div>
-        </div>
-
-        <RouterLink
-          :to="{ name: 'detail-view', params: { id: country.id } }"
-          class="block w-full text-center px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
-        >
-          View details
-        </RouterLink>
       </div>
-    </div>
-
-    <!-- Pagination Controls -->
-    <div class="mt-4 flex justify-between items-center">
-      <button
-        @click="countryStore.currentPage > 1 && $router.push({
-          query: {
-            page: String(countryStore.currentPage - 1),
-            pageSize: String(countryStore.countriesPerPage)
-          }
-        })"
-        :disabled="countryStore.currentPage <= 1"
-        class="px-4 py-2 bg-gray-300 rounded text-sm transition-opacity"
-        :class="{ 'opacity-50 cursor-not-allowed': countryStore.currentPage <= 1 }"
-      >
-        Previous
-      </button>
-
-      <span class="text-sm text-gray-700">
-        Page {{ countryStore.currentPage }} of {{ countryStore.totalPages }}
-      </span>
-
-      <button
-        @click="countryStore.currentPage < countryStore.totalPages && $router.push({
-          query: {
-            page: String(countryStore.currentPage + 1),
-            pageSize: String(countryStore.countriesPerPage)
-          }
-        })"
-        :disabled="countryStore.currentPage >= countryStore.totalPages"
-        class="px-4 py-2 bg-gray-300 rounded text-sm transition-opacity"
-        :class="{ 'opacity-50 cursor-not-allowed': countryStore.currentPage >= countryStore.totalPages }"
-      >
-        Next
-      </button>
     </div>
   </div>
 </template>
