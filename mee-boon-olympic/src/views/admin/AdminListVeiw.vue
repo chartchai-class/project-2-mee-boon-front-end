@@ -52,6 +52,16 @@
                                 Users List
                             </a>
                         </RouterLink>
+                        <RouterLink to="/admin/add-country">
+                            <a href="#"
+                                class="flex items-center px-3 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none"
+                                    stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                                Add New Country
+                            </a>
+                        </RouterLink>
                     </div>
                 </nav>
             </div>
@@ -114,12 +124,7 @@
               <td class="px-6 py-4 text-sm text-slate-600">{{ user.registerDate }}</td>
               <td class="px-6 py-4">
                 <div class="flex gap-2">
-                  <button class="p-1 text-blue-600 hover:text-blue-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                    </svg>
-                  </button>
-                  <button class="p-1 text-red-600 hover:text-red-700">
+                  <button class="p-3 text-red-600 hover:text-red-700">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                     </svg>

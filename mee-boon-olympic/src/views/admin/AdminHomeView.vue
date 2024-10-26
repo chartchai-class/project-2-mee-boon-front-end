@@ -51,6 +51,16 @@
                                 Users List
                             </a>
                         </RouterLink>
+                        <RouterLink to="/admin/add-country">
+                            <a href="#"
+                                class="flex items-center px-3 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none"
+                                    stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                                Add New Country
+                            </a>
+                        </RouterLink>
                     </div>
                 </nav>
             </div>
@@ -58,116 +68,13 @@
 
         <!-- Main Content -->
         <div class="flex-1 p-8">
-
-            <!-- Title and Controls -->
-            <div class="flex justify-between items-center mb-16">
-                <h1 class="text-2xl font-semibold text-gray-800">COUNTRY</h1>
-                <div class="flex items-center gap-8">
-                    <!-- Search -->
-                    <div class="relative">
-                        <input type="text" placeholder="Search"
-                            class="w-[360px] pl-6 pr-12 py-3 text-sm border rounded-full focus:outline-none focus:ring-1 focus:ring-blue-200 bg-white shadow-sm">
-                        <button class="absolute right-5 top-1/2 transform -translate-y-1/2">
-                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </button>
-                    </div>
-                    <RouterLink to="/admin/add-country">
-                        <button
-                            class="px-6 py-2.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            ADD NEW COUNTRY
-                        </button>
-
-                    </RouterLink>
-
-                </div>
-            </div>
-
-            <!-- Table -->
-            <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
-                <table class="w-full table-fixed">
-                    <thead>
-                        <tr class="bg-[#F3F6FF]">
-                            <th
-                                class="px-10 py-5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[8%]">
-                                ID</th>
-                            <th
-                                class="px-10 py-5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[30%]">
-                                NAME</th>
-                            <th
-                                class="px-10 py-5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[12%]">
-                                MEDALS</th>
-                            <th
-                                class="px-10 py-5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[12%]">
-                                GOAL</th>
-                            <th
-                                class="px-10 py-5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[12%]">
-                                SILVER</th>
-                            <th
-                                class="px-10 py-5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[12%]">
-                                BRONZE</th>
-                            <th
-                                class="px-10 py-5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-[14%]">
-                                EDIT</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        <tr v-for="(country, index) in countries" :key="index"
-                            class="hover:bg-[#F8FAFF] transition-colors">
-                            <td class="px-10 py-6 text-sm text-gray-600">{{ country.id }}</td>
-                            <td class="px-10 py-6 text-sm text-gray-600">{{ country.name }}</td>
-                            <td class="px-10 py-6 text-sm text-gray-600">{{ country.medals }}</td>
-                            <td class="px-10 py-6 text-sm text-gray-600">{{ country.goal }}</td>
-                            <td class="px-10 py-6 text-sm text-gray-600">{{ country.silver }}</td>
-                            <td class="px-10 py-6 text-sm text-gray-600">{{ country.bronze }}</td>
-                            <td class="px-5 ">
-                                <RouterLink to="/admin/edit-country">
-                                    <button
-                                        class="px-6 py-2.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors flex items-center gap-2">
-                                        EDIT
-                                    </button>
-                                </RouterLink>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="medalHome">
+                <MedalTable />
             </div>
         </div>
     </div>
 </template>
 
-<script>
-export default {
-    name: 'OlympicAdmin',
-    data() {
-        return {
-            countries: [
-                {
-                    id: 1,
-                    name: 'United state of America',
-                    medals: 126,
-                    goal: 40,
-                    silver: 44,
-                    bronze: 42
-                },
-                {
-                    id: 1,
-                    name: 'United state of America',
-                    medals: 126,
-                    goal: 40,
-                    silver: 44,
-                    bronze: 42
-                }
-            ]
-        }
-    }
-}
+<script setup lang="ts">
+import MedalTable from '@/views/OlympicMedalTable.vue'
 </script>

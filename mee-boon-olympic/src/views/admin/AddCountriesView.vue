@@ -52,6 +52,16 @@
                                 Users List
                             </a>
                         </RouterLink>
+                        <RouterLink to="/admin/add-country">
+                            <a href="#"
+                                class="flex items-center px-3 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none"
+                                    stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                                Add New Country
+                            </a>
+                        </RouterLink>
                     </div>
                 </nav>
             </div>

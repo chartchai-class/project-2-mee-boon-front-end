@@ -2,7 +2,7 @@
 <template>
     <div class="flex min-h-screen bg-slate-100">
       <!-- Sidebar -->
-    <div class="hidden md:flex flex-col w-64 bg-gray-800 rounded-2xl m-4">
+      <div class="hidden md:flex flex-col w-64 bg-gray-800 rounded-2xl m-4">
             <div class="flex flex-col flex-1 overflow-y-auto">
                 <nav
                     class="flex flex-col flex-1 overflow-y-auto bg-gradient-to-b from-gray-700 to-blue-500 px-2 py-4 gap-10 rounded-2xl">
@@ -50,6 +50,16 @@
                                         d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                 </svg>
                                 Users List
+                            </a>
+                        </RouterLink>
+                        <RouterLink to="/admin/add-country">
+                            <a href="#"
+                                class="flex items-center px-3 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none"
+                                    stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                                Add New Country
                             </a>
                         </RouterLink>
                     </div>
