@@ -208,11 +208,14 @@ onMounted(() => {
           </ul>
         </nav>
       </div>
-    </nav>
+    </nav>      
+
+
 
     <!-- Main Content -->
     <main class="flex-grow">
       <RouterView />
+
     </main>
 
     <!-- Footer -->
