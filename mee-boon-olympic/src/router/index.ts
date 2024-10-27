@@ -14,6 +14,7 @@ import CountryView from '@/views/CountryView.vue';
 import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import OlympicMedalTable from '@/views/OlympicMedalTable.vue';
+import { useAuthStore } from '@/stores/auth';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,28 +44,32 @@ const router = createRouter({
     {
       path: '/Admin',
       name: 'admin',
-      component: AdminHomeView
+      component: AdminHomeView,
+      meta: { requiresAuth: true, requiresRole: 'ROLE_ADMIN' },
     },
     {
       path: '/admin/admin-list',
       name: 'admin-list',
-      component: AdminListVeiw
-
+      component: AdminListVeiw,
+      meta: { requiresAuth: true, requiresRole: 'ROLE_ADMIN' },
     },
     {
       path: '/admin/edit-country',
       name: 'edit-country',
-      component: EditCountryView
+      component: EditCountryView,
+      meta: { requiresAuth: true, requiresRole: 'ROLE_ADMIN' },
     },
     {
       path: '/admin/user-list',
       name: 'user-list',
-      component: UserListView
+      component: UserListView,
+      meta: { requiresAuth: true, requiresRole: 'ROLE_ADMIN' },
     },
     {
       path: '/admin/add-country',
       name: 'add-country',
-      component: AddCountriesView
+      component: AddCountriesView,
+      meta: { requiresAuth: true, requiresRole: 'ROLE_ADMIN' },
     },
     {
       path: '/countries/:id',
@@ -77,7 +82,6 @@ const router = createRouter({
       name: 'cheer-up-view',
       component: CheerUpView
     },
-
     {
       path: '/404/:resource',
       name: '404-resource-view',
@@ -112,8 +116,27 @@ const router = createRouter({
   }
 });
 
-router.beforeEach(() => {
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore(); // Access the auth store
+
+  // Start progress bar
   nProgress.start();
+
+  // Check if the route requires authentication
+  if (to.meta.requiresAuth) {
+    if (!authStore.token) {
+      // If the user is not authenticated (no token), redirect to the login page
+      return next({ name: 'login' });
+    }
+
+    // Check if the route requires a specific role
+    if (to.meta.requiresRole && !authStore.user?.roles.includes(to.meta.requiresRole)) {
+      // If the user doesn't have the required role, redirect to the home page
+      return next({ name: 'medalHome' });
+    }
+  }
+
+  next(); // Allow the navigation
 });
 
 router.afterEach(() => {
