@@ -14,33 +14,24 @@ export default {
       textColor: {
         skin: {
           base: 'var(--color-text-base)',
-          second: 'var(--color-text-second)',
+          secondary: 'var(--color-text-alt)',
           muted: 'var(--color-text-muted)',
-          inverted: 'var(--color-text-inverted)',
           silver: 'var(--color-text-silver)',
           bronze: 'var(--color-text-bronze)',
-          gold: 'var(--color-text-gold)',
-          headTable: 'var(--color-table-header-text)'
+          gold: 'var(--color-text-gold)'
         },
       },
       backgroundColor: {
-        skin: { fill: 'var(--color-fill)',
-          'button-fill': 'var(--color-button-fill',
-          'button-accent': 'var(--color-button-accent)',
-          'button-hover': 'var(--color-button-hover-accent)',
-          'header-table': 'var(--color-table-header)',
-          'row': 'var(--color-table-row)',
-          'row-alt': 'var(--color-table-row-alt)',
-          'row-hover': 'var(--color-table-row-hover)'
+        skin: { fill: 'var(--color-primary)',
+          'secondary': 'var(--color-secondary)',
+          'card-primary': 'var(--color-card-primary)',
+          'card-hover': 'var(--color-card-secondary)',
+          'button-accent': 'var(--color-button-primary)',
+          'button-hover': 'var(--color-button-primary-hover)',
+          'button-muted': 'var(--color-button-muted)',
+          'button-muted-hover': 'var(--color-button-muted-hover)',
         },
-      },
-      border: {
-        skin: { base: 'var(--color-boder-base)',
-          'alt': 'var(--color-boder-alt)',
-          'table': 'var(--color-boder-table)'
-          
-        }
-      },
+      }
   },
   plugins: [],
 }

@@ -1,29 +1,25 @@
 <template>
-    <div class="max-w-3xl mx-auto bg-skin-fill-alt dark:bg-skin-sec rounded-xl shadow">
+    <div class="bg-skin-fill dark:bg-skin-card-hover max-w-3xl mx-auto bg-skin-fill-alt dark:bg-skin-sec rounded-xl shadow">
       <!-- Comment Section Header -->
-      <div class="p-6 border-b border-skin-base">
+      <div class="p-6 sm:p-6 border-b border-skin-base">
         <h2 class="text-xl font-semibold text-skin-base">
-          Comments ({{ comments.length }})
+          Cheer up ({{ comments.length }})
         </h2>
       </div>
   
       <!-- Comment Form -->
-      <div class="p-6 border-b border-skin-base">
+      <div class=" p-6 sm:p-6 border-b border-skin-base">
         <!-- Show if logged in -->
         <div v-if="isLoggedIn" class="space-y-4">
           <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-full bg-skin-button-accent"></div>
-            <div>
-              <p class="text-skin-base font-medium">Test User</p>
-              <p class="text-skin-muted text-sm">Posting publicly</p>
-            </div>
+            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-skin-button-accent"></div>
           </div>
   
           <div class="space-y-2">
             <textarea
               v-model="newComment"
               rows="3"
-              class="w-full rounded-lg border border-skin-base bg-skin-fill dark:bg-skin-fill p-4 text-skin-base placeholder-skin-muted focus:ring-2 focus:ring-skin-button-accent resize-none"
+              class="w-full rounded-lg border border-skin-base bg-skin-fill dark:bg-skin-secondary p-4 text-skin-base placeholder-skin-muted focus:ring-2 focus:ring-skin-button-accent resize-none"
               placeholder="Share your thoughts..."
             ></textarea>
             <div class="flex justify-between items-center">
@@ -33,7 +29,7 @@
               <button
                 @click="addComment"
                 :disabled="!newComment.trim()"
-                class="px-6 py-2 bg-skin-button-accent hover:bg-skin-button-hover text-skin-inverted rounded-lg transition-colors duration-200 disabled:opacity-50"
+                class="w-50 sm:w:auto px-4 py-2 bg-skin-button-accent hover:bg-skin-button-hover text-skin-muted dark:text-skin-muted dark:hover-bg-skin-button-accent dark:bg-skin-accent-muted dark:hover:bg-skin-button-accent-hover  rounded-lg  duration-200 disabled:opacity-50"
               >
                 Post Comment
               </button>
@@ -42,14 +38,14 @@
         </div>
   
         <!-- Show if not logged in -->
-        <div v-else class="bg-skin-fill dark:bg-skin-fill rounded-lg p-6 text-center">
+        <div v-else class="bg-skin-fill dark:bg-skin-card-hover rounded-lg p-6 text-center">
           <div class="space-y-3">
-            <div class="w-12 h-12 bg-skin-muted rounded-full mx-auto"></div>
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full mx-auto"></div>
             <p class="text-skin-base font-medium">Join the conversation</p>
-            <p class="text-skin-muted text-sm">Log in to share your thoughts</p>
+            <p class="text-skin-base text-sm">Log in to share your thoughts</p>
             <button
               @click="toggleLogin"
-              class="inline-block px-6 py-2 bg-skin-button-accent hover:bg-skin-button-hover text-skin-inverted rounded-lg transition-colors duration-200"
+              class="inline-block px-4 py-2 sm:px-6 border border-skin-base hover:bg-skin-button-muted-hover hover:text-skin-muted text-skin-base dark:text-skin-secondary rounded-lg transition-colors duration-200"
             >
               Log In
             </button>
@@ -63,11 +59,11 @@
           <div
             v-for="comment in comments"
             :key="comment.id"
-            class="p-6 hover:bg-skin-fill dark:hover:bg-skin-fill transition-colors duration-200"
+            class="p-6 transition-colors duration-200"
           >
             <div class="flex justify-between items-start">
               <div class="flex items-start space-x-3">
-                <div class="w-10 h-10 rounded-full bg-skin-button-accent"></div>
+                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-skin-button-accent"></div>
                 <div>
                   <div class="flex items-center space-x-2">
                     <span class="font-medium text-skin-base">{{ comment.userName }}</span>
@@ -75,14 +71,7 @@
                   <p class="mt-1 text-skin-base">{{ comment.content }}</p>
                 </div>
               </div>
-  
-              <button
-                v-if="isLoggedIn"
-                @click="deleteComment(comment.id)"
-                class="p-1 text-skin-muted hover:text-red-500 transition-colors duration-200"
-              >
-                Delete
-              </button>
+
             </div>
           </div>
         </template>

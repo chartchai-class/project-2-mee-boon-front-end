@@ -10,9 +10,9 @@
       <div class="p-4 space-y-3">
         <div v-for="(message, index) in chatMessages" 
              :key="index" 
-             class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded">
+             class="flex items-center space-x-2 p-2 hover:bg-card-hover rounded">
           <div class="flex-shrink-0">
-            <div class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center">
+            <div class="w-6 h-6 rounded-full bg-skin-fill dark:bd-skin-sill flex items-center justify-center">
               <span class="text-xs">👤</span>
             </div>
           </div>
