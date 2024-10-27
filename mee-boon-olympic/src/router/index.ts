@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import OlympicHomeView from '@/views/OlympicHomeView.vue';
-import CheerUpView from '@/components/CheerUp.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 import NetworkErrorView from '@/views/NetworkErrorView.vue';
 import SportList from '@/components/SportList.vue';
