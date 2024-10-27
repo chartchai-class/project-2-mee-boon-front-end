@@ -65,7 +65,7 @@
 
           <div>
             <button
-              type="button"
+              type="submit"
               class="flex w-full justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-colors duration-200"
             >
               Sign in to Olympic Portal
@@ -130,10 +130,6 @@ const { errors, handleSubmit } = useForm({
 const { value: email } = useField<string>('email')
 const { value: password } = useField<string>('password')
 
-const goToRegister = () => {
-  router.push({ name: 'register' })
-}
-
 const onSubmit = handleSubmit(async (values) => {
   loginError.value = '' // รีเซ็ตข้อความข้อผิดพลาดก่อน
   try {
@@ -144,4 +140,10 @@ const onSubmit = handleSubmit(async (values) => {
     loginError.value = 'Incorrect email or password. Please try again.'
   }
 })
+
+const goToRegister = () => {
+  router.push({ name: 'register' })
+}
+
+
 </script>
