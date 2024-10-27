@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth';
 
 // const messageStore = useMessageStore();
 // const authStore = useAuthStore();
-const route = useRoute()
+const router = useRouter()
+const authStore = useAuthStore()
 const isDark = ref(false)
 
 const links = [
   { to: '/', label: 'Medal Table' },
   { to: '/Country', label: 'Country' },
   { to: '/Register', label: 'Register' },
-  { to: '/Longin', label: 'Longin' }
+  { to: '/longin', label: 'Longin' }
 ]
 
 // Theme functions
@@ -33,6 +35,19 @@ const toggleTheme = () => {
 
 const applyTheme = () => {
   document.documentElement.classList.toggle('dark', isDark.value)
+}
+function logout() {
+  authStore.logout();
+  router.push({ name: 'login' });
+}
+
+const token = localStorage.getItem('token');
+const user = localStorage.getItem('user');
+
+if (token && user) {
+  authStore.reload(token, JSON.parse(user));
+} else {
+  authStore.logout();
 }
 
 onMounted(() => {
@@ -104,14 +119,48 @@ onMounted(() => {
         </button>
 
         <!-- Sign In Button -->
-        <div>
-          <a
-            href="#"
-            class="py-1.5 px-3 m-1 text-center bg-skin-button-accent hover:bg-skin-button-hover text-skin-inverted font-medium rounded-md border border-skin-base hidden lg:inline-block transition-colors duration-200"
-          >
-            Sign In
-          </a>
-        </div>
+        <nav class="flex">
+            <!-- สำหรับผู้ใช้ที่ยังไม่ได้เข้าสู่ระบบ -->
+            <ul v-if="!authStore.currentUserName" class="flex nav-bar ml-auto">
+              <li class="nav-item px-2">
+                <router-link to="/register" class="nav-link">
+                  <div class="flex items-center">
+                    <!-- <SvgIcon type="mdi" :path="mdiAccountPlus" /> -->
+                    <span class="ml-3">Sign Up</span>
+                  </div>
+                </router-link>
+              </li>
+              <li class="nav-item px-2">
+                <router-link to="/login" class="nav-link">
+                  <div class="flex items-center">
+                    <!-- <SvgIcon type="mdi" :path="mdiLogin" /> -->
+                    <span class="ml-3">Login</span>
+                  </div>
+                </router-link>
+              </li>
+            </ul>
+
+            <!-- สำหรับผู้ใช้ที่เข้าสู่ระบบแล้ว -->
+            <ul v-if="authStore.currentUserName" class="flex nav-bar ml-auto">
+              <li class="nav-item px-2">
+                <router-link to="/profile" class="nav-link">
+                  <div class="flex items-center">
+                    <!-- <SvgIcon type="mdi" :path="mdiAccount" /> -->
+                    <span class="ml-3">{{ authStore.currentUserName }}</span>
+                  </div>
+                </router-link>
+              </li>
+              <li class="nav-item px-2">
+                <a class="nav-link hover:cursor-pointer" @click="logout">
+                  <div class="flex items-center">
+                    <!-- <SvgIcon type="mdi" :path="mdiLogout" /> -->
+                    <span class="ml-3">LogOut</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
       </div>
     </nav>
 

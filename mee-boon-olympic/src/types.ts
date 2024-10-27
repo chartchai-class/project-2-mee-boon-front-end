@@ -39,9 +39,11 @@ export interface User {
   firstName: string
   lastName: string
   email: string
+  roles: string[]
   password: string
   profileImage?: string | null
 }
+export interface Comment {}
 
 
 
