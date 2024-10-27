@@ -1,20 +1,30 @@
 <script setup lang="ts">
-import type { Organizer } from '@/types';
+import { defineProps, defineEmits, withDefaults } from 'vue';
+import type { SportDetail } from '@/types';
 
-const modelValue = defineModel ()
 interface BaseSelectProps {
-    label: string
-    options: Organizer[]
+  label: string;
+  modelValue: number;
+  options: SportDetail[];
 }
+
 const props = withDefaults(defineProps<BaseSelectProps>(), {
-    label: ''
-})
+  label: '',
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+function onSelect(event: Event) {
+  const target = event.target as HTMLSelectElement;
+  emit('update:modelValue', Number(target.value));
+}
 </script>
+
 <template>
-    <label v-if="label">
-        {{  props.label }}
-    </label>
-    <select class="mb-6" v-bind = "$attrs" v-model="modelValue">
-        <option v-for="option in props.options" :key="option.id" :value="option.id" :selected="option.id === modelValue">{{ option.name }}</option>
-    </select>
+  <label v-if="props.label">{{ props.label }}</label>
+  <select class="mb-6 w-full px-3 py-2 border rounded-md" :value="props.modelValue" @change="onSelect">
+    <option v-for="option in props.options" :key="option.id" :value="option.id">
+      {{ option.sportName }}
+    </option>
+  </select>
 </template>
