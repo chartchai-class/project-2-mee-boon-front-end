@@ -2,6 +2,7 @@
 import { RouterLink, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth';
+import BackBTN from './components/BackBTN.vue';
 
 // const messageStore = useMessageStore();
 // const authStore = useAuthStore();
@@ -162,11 +163,14 @@ onMounted(() => {
           </nav>
 
       </div>
-    </nav>
+    </nav>      
+
+
 
     <!-- Main Content -->
     <main class="flex-grow">
       <RouterView />
+
     </main>
 
     <!-- Footer -->
