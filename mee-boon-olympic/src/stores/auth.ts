@@ -4,7 +4,7 @@ import type { AxiosInstance } from 'axios';
 import type { User } from '@/types';
 
 const apiClient: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL:" http://localhost:8080",
   withCredentials: false,
   headers: {
     Accept: 'application/json',
@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', {
   }),
   getters: {
     currentUserName(): string {
-      return this.user?.name || '';
+      return this.user?.username || '';
     },
     isAdmin(): boolean {
       return this.user?.roles.includes('ROLE_ADMIN') || false
@@ -29,30 +29,30 @@ export const useAuthStore = defineStore('auth', {
     }
   },
   actions: {
-    register(
-      email: string,
-      password: string,
-      username: string,
-      firstname: string,
-      lastname: string
-    ) {
-      return apiClient
-        .post('/api/v1/auth/register', {
-          email: email,
-          password: password,
-          username: username,
-          firstname: firstname,
-          lastname: lastname
-        })
-        .then((response) => {
-          this.token = response.data.access_token
-          this.user = response.data.user
-          localStorage.setItem('user', JSON.stringify(this.user))
-          localStorage.setItem('access_token', this.token as string)
-          axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
-          return response
-        })
-    },
+    // register(
+    //   email: string,
+    //   password: string,
+    //   username: string,
+    //   firstname: string,
+    //   lastname: string
+    // ) {
+    //   return apiClient
+    //     .post('/api/v1/auth/register', {
+    //       email: email,
+    //       password: password,
+    //       username: username,
+    //       firstname: firstname,
+    //       lastname: lastname
+    //     })
+    //     .then((response) => {
+    //       this.token = response.data.access_token
+    //       this.user = response.data.user
+    //       localStorage.setItem('user', JSON.stringify(this.user))
+    //       localStorage.setItem('access_token', this.token as string)
+    //       axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+    //       return response
+    //     })
+    // },
     login(email: string, password: string) {
       return apiClient
         .post('/api/v1/auth/authenticate', {
