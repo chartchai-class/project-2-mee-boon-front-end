@@ -1,5 +1,7 @@
 <template>
-  <div class="min-h-screen flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-gradient-to-b from-blue-50 to-white">
+  <div
+    class="min-h-screen flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-gradient-to-b from-blue-50 to-white"
+  >
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <!-- Olympic Rings -->
       <div class="flex justify-center space-x-2 mb-8">
@@ -9,8 +11,10 @@
         <div class="w-8 h-8 rounded-full border-4 border-green-500"></div>
         <div class="w-8 h-8 rounded-full border-4 border-red-500"></div>
       </div>
-      
-      <h2 class="text-center text-3xl font-bold tracking-tight text-gray-900">Mee boon Olympic Games Portal</h2>
+
+      <h2 class="text-center text-3xl font-bold tracking-tight text-gray-900">
+        Mee boon Olympic Games Portal
+      </h2>
       <p class="mt-2 text-center text-sm text-gray-600">Sign in to access your Olympic account</p>
     </div>
 
@@ -23,12 +27,14 @@
 
         <form class="space-y-6" @submit.prevent="onSubmit">
           <div>
-            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-            <InputText 
-              type="text" 
-              id="email" 
-              name="email" 
-              v-model="email" 
+            <label for="email" class="block text-sm font-medium leading-6 text-gray-900"
+              >Email address</label
+            >
+            <InputText
+              type="text"
+              id="email"
+              name="email"
+              v-model="email"
               placeholder="Email address"
               :error="errors['email']"
               class="mt-2"
@@ -37,24 +43,29 @@
 
           <div>
             <div class="flex items-center justify-between mb-2">
-              <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+              <label for="password" class="block text-sm font-medium leading-6 text-gray-900"
+                >Password</label
+              >
               <div class="text-sm">
-                <a href="#" class="font-semibold text-blue-600 hover:text-blue-500 transition-colors duration-200">
+                <a
+                  href="#"
+                  class="font-semibold text-blue-600 hover:text-blue-500 transition-colors duration-200"
+                >
                   Forgot password?
                 </a>
               </div>
             </div>
-            <InputText 
-              type="password" 
-              v-model="password" 
+            <InputText
+              type="password"
+              v-model="password"
               placeholder="Password"
               :error="errors['password']"
             />
           </div>
 
           <div>
-            <button 
-              type="submit" 
+            <button
+              type="button"
               class="flex w-full justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-colors duration-200"
             >
               Sign in to Olympic Portal
@@ -73,12 +84,13 @@
           </div>
 
           <div class="mt-6 text-center">
-            <a 
-              href="#" 
+            <button
+              type="button"
               class="font-semibold text-blue-600 hover:text-blue-500 transition-colors duration-200"
+              @click="goToRegister"
             >
               Register for Olympic Account
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -117,6 +129,10 @@ const { errors, handleSubmit } = useForm({
 
 const { value: email } = useField<string>('email')
 const { value: password } = useField<string>('password')
+
+const goToRegister = () => {
+  router.push({ name: 'register' })
+}
 
 const onSubmit = handleSubmit(async (values) => {
   loginError.value = '' // รีเซ็ตข้อความข้อผิดพลาดก่อน
