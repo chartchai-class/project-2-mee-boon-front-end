@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth'
 
 // const messageStore = useMessageStore();
 // const authStore = useAuthStore();
-const route = useRoute()
+const router = useRouter()
+const authStore = useAuthStore()
 const isDark = ref(false)
 
 const links = [
   { to: '/', label: 'Medal Table' },
   { to: '/Country', label: 'Country' },
   { to: '/Register', label: 'Register' },
-  { to: '/Longin', label: 'Longin' }
+  { to: '/longin', label: 'Longin' },
+  { to: '/Admin', label: 'admin' }
 ]
 
 // Theme functions
@@ -34,6 +37,19 @@ const toggleTheme = () => {
 const applyTheme = () => {
   document.documentElement.classList.toggle('dark', isDark.value)
 }
+function logout() {
+  authStore.logout()
+  router.push({ name: 'login' })
+}
+
+const token = localStorage.getItem('token')
+const user = localStorage.getItem('user')
+
+if (token && user) {
+  authStore.reload(token, JSON.parse(user))
+} else {
+  authStore.logout()
+}
 
 onMounted(() => {
   initTheme()
@@ -41,18 +57,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-skin-fill dark:bg-skin-fil">
-    <nav class="relative px-4 py-2 flex justify-between items-center bg-skin-primary dark:bg-skin-primary border-b ">
-      <a class="text-2xl font-bold text-skin-base" href="#">
-        MEEBOON MEEVASANA OLYMPIC
-      </a>
+  <div class="min-h-screen flex flex-col bg-skin-fill dark:bg-skin-fill">
+    <nav
+      class="relative px-4 py-2 flex justify-between items-center bg-skin-fill-alt dark:bg-skin-sec border-b border-skin-base"
+    >
+      <router-link to="/" class="nav-link">
+        <a class="text-2xl font-bold text-skin-base" href="#"> MEEBOON MEEVASANA OLYMPIC </a>
+      </router-link>
 
       <!-- Mobile Menu Button -->
       <div class="lg:hidden">
-        <button
-          class="navbar-burger flex items-center text-skin-base p-1"
-          id="navbar_burger"
-        >
+        <button class="navbar-burger flex items-center text-skin-base p-1" id="navbar_burger">
           <svg
             class="block h-6 w-6 fill-current"
             viewBox="0 0 20 20"
@@ -105,20 +120,115 @@ onMounted(() => {
         </button>
 
         <!-- Sign In Button -->
-        <div>
-          <a
-            href="#"
-            class="py-1.5 px-3 m-1 text-center bg-skin-primary hover:bg-skin-button-muted-hover hover:text-skin-muted ld text-skin-base font-medium rounded-md border border-skin-base hidden lg:inline-block transition-colors duration-200 dark:text-skin-base dark:hover:bg-skin-button-hover"
-          >
-            Sign In
-          </a>
-        </div>
+        <nav class="flex">
+          <!-- สำหรับผู้ใช้ที่ยังไม่ได้เข้าสู่ระบบ -->
+          <ul v-if="!authStore.currentUserName" class="flex nav-bar ml-auto">
+            <li class="nav-item px-2">
+              <router-link to="/register" class="nav-link">
+                <div class="flex items-center">
+                  <!-- <SvgIcon type="mdi" :path="mdiAccountPlus" /> -->
+                  <span class="ml-3">Sign Up</span>
+                </div>
+              </router-link>
+            </li>
+            <li class="nav-item px-2">
+              <router-link to="/login" class="nav-link">
+                <div class="flex items-center">
+                  <!-- <SvgIcon type="mdi" :path="mdiLogin" /> -->
+                  <span class="ml-3">Login</span>
+                </div>
+              </router-link>
+            </li>
+          </ul>
+
+          <!-- สำหรับผู้ใช้ที่เข้าสู่ระบบแล้ว -->
+          <ul v-if="authStore.currentUserName" class="flex items-center space-x-4 ml-auto">
+            <li>
+              <router-link
+                to="/profile"
+                class="group flex items-center p-2 rounded-lg hover:bg-blue-50 transition-all duration-200"
+              >
+                <div class="flex items-center space-x-3">
+                  <!-- Profile Icon -->
+                  <div
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600"
+                  >
+                    <span class="text-lg">👤</span>
+                  </div>
+
+                  <div class="flex flex-col">
+                    <!-- Admin Badge & Name -->
+                    <div v-if="authStore.isAdmin" class="flex items-center space-x-2">
+                      <router-link
+                        to="/admin"
+                        class="inline-flex items-center px-3 py-1 text-sm font-medium text-blue-700 bg-blue-100 rounded-full border border-blue-200 hover:bg-blue-200 hover:text-blue-800 transition-colors duration-200"
+                      >
+                        <span class="mr-1.5">❖</span>
+                        <span class="font-semibold">Admin</span>
+                      </router-link>
+
+                      <span class="text-sm font-medium text-gray-700">
+                        {{ authStore.currentUserName }}
+                      </span>
+                    </div>
+
+                    <!-- Regular User Name -->
+                    <span v-else class="text-sm font-medium text-gray-700">
+                      {{ authStore.currentUserName }}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Hover Indicator -->
+                <span
+                  class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                >
+                  <svg
+                    class="w-4 h-4 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </span>
+              </router-link>
+            </li>
+
+            <!-- Logout Button -->
+            <li>
+              <button
+                @click="logout"
+                class="flex items-center px-4 py-2 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors duration-200"
+              >
+                <!-- Logout Icon -->
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  />
+                </svg>
+                Logout
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </nav>
+    </nav>      
+
+
 
     <!-- Main Content -->
     <main class="flex-grow">
       <RouterView />
+
     </main>
 
     <!-- Footer -->

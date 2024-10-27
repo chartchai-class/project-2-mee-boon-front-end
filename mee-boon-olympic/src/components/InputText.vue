@@ -25,7 +25,7 @@ const isError = computed(() => {
     return props.error ? true : false
 })
 </script>
-<template>
+<!-- <template>
     <div>
         <div class="mt-2">
             <input type="text"
@@ -42,6 +42,32 @@ const isError = computed(() => {
                 fill="none"
                 view-box="0 0 24 24"
                 stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M 6112 12"/>
+                </svg>
+            </ErrorMessage>
+        </div>
+    </div>
+</template> -->
+<template>
+    <div>
+        <div class="mt-2">
+            <input 
+                :type="props.type"  
+                :id="uuid"
+                :class="placeholderErrorClass"
+                :placeholder="placeholder"
+                v-bind="$attrs"
+                v-model="modelValue"
+                :aria-describedby="error ? `${uuid}-error` : undefined"
+                :aria-invalid="error ? true : false"
+            />
+            <ErrorMessage class="inline-flex text-sm text-red-700" v-if="error" :id="`${uuid}-error`">
+                {{ error }} 
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6"
+                    fill="none"
+                    view-box="0 0 24 24"
+                    stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M 6112 12"/>
                 </svg>
             </ErrorMessage>

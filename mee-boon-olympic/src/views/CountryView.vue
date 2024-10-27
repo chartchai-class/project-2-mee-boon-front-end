@@ -1,5 +1,9 @@
 <template>
-  <main class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+  <div>
+      <BackBTN targetPath="/" class="py-12  lg:px-8 lg:py-12"/>
+  
+  <main class="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8 ">
+
     <!-- Loading State -->
     <div v-if="isLoading" class="flex flex-col items-center justify-center min-h-[400px]">
       <div
@@ -172,6 +176,8 @@
       </div>
     </div>
   </main>
+  </div>
+  
 </template>
 
 <script setup lang="ts">
@@ -180,6 +186,8 @@ import { type Country } from '@/types'
 import EventService from '@/services/EventService'
 import CheerUp from '@/components/CheerUp.vue'
 import CommentSection from '@/components/CommentSection.vue'
+import BackBTN from '@/components/BackBTN.vue'
+
 
 const currentTab = ref('details')
 const country = ref<Country | null>(null)

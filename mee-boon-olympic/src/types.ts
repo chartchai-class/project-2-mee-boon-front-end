@@ -36,12 +36,15 @@ export interface Sport {
 // src/types/index.ts
 export interface User {
   id?: number
+  username: string
   firstName: string
   lastName: string
   email: string
+  roles: string[]
   password: string
   profileImage?: string | null
 }
+export interface Comment {}
 
 
 
