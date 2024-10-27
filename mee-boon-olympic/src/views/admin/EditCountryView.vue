@@ -17,7 +17,7 @@
                             Admin Dashboard
                         </div>
                     </div>
-                    <div class="flex flex-col flex-1 gap-3">
+                    <div class="flex flex-col flex-1 gap-3" v-if="authStore.isAdmin">
                         <RouterLink to="/Admin">
                             <a href="#"
                                 class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
@@ -29,7 +29,7 @@
                                 Country
                             </a>
                         </RouterLink>
-                        <RouterLink to="/admin/admin-list">
+                        <RouterLink to="/admin/admin-list" v-if="authStore.isAdmin">
                             <a href="#"
                                 class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none"
@@ -40,7 +40,7 @@
                                 Admin List
                             </a>
                         </RouterLink>
-                        <RouterLink to="/admin/user-list">
+                        <RouterLink to="/admin/user-list" v-if="authStore.isAdmin">
                             <a href="#"
                                 class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none"
@@ -51,7 +51,7 @@
                                 Users List
                             </a>
                         </RouterLink>
-                        <RouterLink to="/admin/add-country">
+                        <RouterLink to="/admin/add-country" v-if="authStore.isAdmin">
                             <a href="#"
                                 class="flex items-center px-3 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none"
@@ -239,6 +239,7 @@
   </template>
   
   <script>
+  
   export default {
     name: 'EditCountry',
     data() {

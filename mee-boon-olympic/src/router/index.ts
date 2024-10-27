@@ -15,6 +15,7 @@ import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import OlympicMedalTable from '@/views/OlympicMedalTable.vue';
 import { useAuthStore } from '@/stores/auth';
+import CommentSection from '@/components/CommentSection.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,7 +81,9 @@ const router = createRouter({
     {
       path: '/cheer-up',
       name: 'cheer-up-view',
-      component: CheerUpView
+      component: CommentSection,
+      meta: { requiresAuth: true, requiresRole: 'ROLE_USER' },
+
     },
     {
       path: '/404/:resource',

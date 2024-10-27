@@ -20,19 +20,9 @@ export default {
   getCountries(perPage: number, page: number) {
     return apiClient.get(`/countries?_limit=${perPage}&_page=${page}`);
   },
-  saveCountries(country: Country){
-    return apiClient.post('/countries',country)
-    .then(response => response.data)
-      .catch(error => {
-        console.error('Failed to create country:', error);
-        if (error.response) {
-          console.error('Response error:', error.response.data);
-        } else if (error.request) {
-          console.error('Request error:', error.request);
-        } else {
-          console.error('Error:', error.message);
-        }
-      });
+   saveCountries(country: Country){
+      return  apiClient.post('/countries', country);
+  
   }
 }
 

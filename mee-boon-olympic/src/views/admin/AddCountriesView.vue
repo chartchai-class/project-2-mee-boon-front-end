@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import BaseInput from '@/components/BaseInput.vue';
-import BaseSelect from '@/components/BaseSelect.vue';
-import type { Country, SportDetail } from '@/types';
+import type { Country } from '@/types';
 import CountryService from '@/services/EventService';  
-import SportService from '@/services/SportService';
 import { useMessageStore } from '@/stores/message';
-
+import { useAuthStore } from '@/stores/auth';
+const authStore = useAuthStore();
 const country = ref<Country>({
   id: 0,
   name: '',
@@ -32,28 +31,22 @@ const country = ref<Country>({
   ],
 });
 
-const sports = ref<SportDetail[]>([]);
+// const medalOptions = [
+//   { value: 'gold', label: '🥇 Gold' },
+//   { value: 'silver', label: '🥈 Silver' },
+//   { value: 'bronze', label: '🥉 Bronze' },
+// ];
+
 const router = useRouter();
 const store = useMessageStore();  // ใช้สำหรับแสดงข้อความแจ้งเตือน
 const isLoading = ref(false);  // สถานะ Loading
 
-onMounted(() => {
-  // Fetch available sports data
-  SportService.getSports()
-    .then((response) => {
-      sports.value = response.data;
-    })
-    .catch(() => {
-      router.push({ name: 'network-error-view' });
-    });
-});
-
 function validateCountry() {
   if (!country.value.name || !country.value.nocCode || !country.value.flagUrl || !country.value.basicInfo) {
     store.updateMessage("Please fill out all required fields.")
-    return false
+    return false;
   }
-  return true
+  return true;
 }
 
 function addSport() {
@@ -70,6 +63,8 @@ function removeSport(index: number) {
 }
 
 function saveCountries() {
+  if(authStore.isAdmin) {
+ 
   if (validateCountry()) {
     isLoading.value = true;
     CountryService.saveCountries(country.value)
@@ -87,18 +82,6 @@ function saveCountries() {
       });
   }
 }
-
-function getMedalEmoji(rankPosition: number): string {
-  switch (rankPosition) {
-    case 1:
-      return '🥇';
-    case 2:
-      return '🥈';
-    case 3:
-      return '🥉';
-    default:
-      return '';
-  }
 }
 </script>
 
@@ -143,9 +126,23 @@ function getMedalEmoji(rankPosition: number): string {
             :key="index"
             class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg"
           >
-            <div class="text-2xl">{{ getMedalEmoji(sport.rankPosition) }}</div>
-            <BaseInput v-model="sport.sportName" placeholder="Sport Name" />
-            <BaseInput v-model="sport.rankPosition" placeholder="Ranking " />
+            <div class="text-2xl">{{ index + 1 }}</div>
+            <div>
+              Sport Name
+              <BaseInput v-model="sport.sportName" placeholder="Sport Name" />
+            </div>
+            <div>
+              Ranking
+              <BaseInput v-model="sport.rankPosition" placeholder="Ranking" />
+            </div>
+            <div>
+              Medals
+              <select v-model="sport.medalsUrl" class="border rounded p-2">
+                
+                <option value="🥇">🥇 Gold</option>
+                <option value="🥈">🥈 Silver</option>
+                <option value="🥉">🥉 Bronze</option>
+              </select>            </div>
             <button @click="removeSport(index)" type="button" class="text-red-500">
               Remove
             </button>
@@ -162,4 +159,4 @@ function getMedalEmoji(rankPosition: number): string {
       </div>
     </form>
   </div>
-</template>
+</template> 

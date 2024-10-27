@@ -1,5 +1,3 @@
-// src/types/index.ts
-
 export interface Medal {
   id: number;
   goldCount: number;
@@ -10,8 +8,8 @@ export interface Medal {
 export interface SportDetail {
   id: number;
   sportName: string;
-  rank: number;
-  medalUrl: string;
+  rankPosition: number;  // Change rank to rankPosition
+  medalsUrl: string;
 }
 
 export interface Country {
@@ -19,18 +17,26 @@ export interface Country {
   name: string;
   nocCode: string;
   flagUrl: string;
-  description: string;
-  gold: number;
-  silver: number;
-  bronze: number;
-  total: number;
-  detail: SportDetail[];
-  medal: Medal[];
+  basicInfo: string;  // Updated from description
+  ownSports: SportDetail[];  // Changed from 'detail' to 'ownSports'
+  medals: Medal[];  // Changed from 'medal' to 'medals'
+}
+// src/types/index.ts
+export interface User {
+  id: number
+  username: string
+  firstName: string
+  lastName: string
+  email: string
+  roles: string[]
+  password: string
+  profileImage?: string | null
 }
 
-export interface Sport {
-  id: number;
-  sportName: string;
-  rank: number;
-  medalUrl: string;
-}
+
+
+
+export interface Comment {}
+
+
+

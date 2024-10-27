@@ -10,7 +10,7 @@
       <!-- Comment Form -->
       <div class=" p-6 sm:p-6 border-b border-skin-base">
         <!-- Show if logged in -->
-        <div v-if="isLoggedIn" class="space-y-4">
+        <div v-if="authStore.isRegistedUser" class="space-y-4">
           <div class="flex items-center space-x-3">
             <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-skin-button-accent"></div>
           </div>
@@ -38,17 +38,20 @@
         </div>
   
         <!-- Show if not logged in -->
-        <div v-else class="bg-skin-fill dark:bg-skin-card-hover rounded-lg p-6 text-center">
+        <div  v-if="!authStore.isRegistedUser" class="bg-skin-fill dark:bg-skin-card-hover rounded-lg p-6 text-center">
           <div class="space-y-3">
             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full mx-auto"></div>
             <p class="text-skin-base font-medium">Join the conversation</p>
             <p class="text-skin-base text-sm">Log in to share your thoughts</p>
+            <RouterLink
+              :to="{ name: 'login' }">
             <button
               @click="toggleLogin"
               class="inline-block px-4 py-2 sm:px-6 border border-skin-base hover:bg-skin-button-muted-hover hover:text-skin-muted text-skin-base dark:text-skin-secondary rounded-lg transition-colors duration-200"
             >
               Log In
             </button>
+          </RouterLink>        
           </div>
         </div>
       </div>
@@ -87,6 +90,9 @@
   
   <script setup lang="ts">
   import { ref } from 'vue'
+  import { useAuthStore } from '@/stores/auth';
+import router from '@/router';
+  const authStore = useAuthStore()
   
   const isLoggedIn = ref(false)
   const newComment = ref('')

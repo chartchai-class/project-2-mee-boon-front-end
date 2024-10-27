@@ -16,6 +16,11 @@
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
       <div class="bg-white p-8 rounded-lg shadow-xl border border-gray-100">
+        <!-- แสดงข้อความข้อผิดพลาด -->
+        <div v-if="loginError" class="mb-4 text-sm text-red-600">
+          {{ loginError }}
+        </div>
+
         <form class="space-y-6" @submit.prevent="onSubmit">
           <div>
             <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
@@ -89,28 +94,38 @@
 import InputText from '@/components/InputText.vue'
 import { useRouter } from 'vue-router'
 import * as yup from 'yup'
-import { useField, useForm} from 'vee-validate'
+import { useField, useForm } from 'vee-validate'
 import { useAuthStore } from '@/stores/auth'
+import { ref } from 'vue' // นำเข้า ref จาก Vue
 
 const router = useRouter()
 const authStore = useAuthStore()
+const loginError = ref('') // สร้างตัวแปร reactive สำหรับเก็บข้อความข้อผิดพลาด
+
 const validationSchema = yup.object({
   email: yup.string().required('The email is required'),
   password: yup.string().required('The password is required')
 })
-const { errors, handleSubmit}= useForm({
+
+const { errors, handleSubmit } = useForm({
   validationSchema,
   initialValues: {
     email: '',
     password: ''
   }
 })
-const {value:email}= useField<String>('email')
-const {value:password}= useField<String>('password')
-const onSubmit = handleSubmit((values)=>{
-  authStore.login(values.email, values.password)
-    .then(() => {
-      router.push({name:'medalHome'})
-    })
+
+const { value: email } = useField<string>('email')
+const { value: password } = useField<string>('password')
+
+const onSubmit = handleSubmit(async (values) => {
+  loginError.value = '' // รีเซ็ตข้อความข้อผิดพลาดก่อน
+  try {
+    await authStore.login(values.email, values.password)
+    router.push({ name: 'medalHome' })
+  } catch (error) {
+    // กำหนดข้อความข้อผิดพลาดเมื่อการล็อกอินไม่สำเร็จ
+    loginError.value = 'Incorrect email or password. Please try again.'
+  }
 })
 </script>
