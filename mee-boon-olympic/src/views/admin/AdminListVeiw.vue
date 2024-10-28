@@ -1,13 +1,13 @@
 <!-- AdminDashboard.vue -->
 <template>
-  <div class="flex min-h-screen bg-slate-100">
+  <div class="bg-skin-fill dark:bg-skin-fill flex min-h-screen bg-slate-100">
     <!-- Sidebar -->
-    <div class="hidden md:flex flex-col w-64 bg-gray-800 rounded-2xl m-4">
+    <div class="hidden md:flex flex-col w-64  rounded-2xl m-4">
             <div class="flex flex-col flex-1 overflow-y-auto">
                 <nav
                     class="flex flex-col flex-1 overflow-y-auto bg-gradient-to-b from-gray-700 to-blue-500 px-2 py-4 gap-10 rounded-2xl">
                     <div class="p-4 border-b border-slate-600">
-                        <div class="flex items-center text-white text-xl font-semibold">
+                        <div class="flex items-center text-skin-base text-xl font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -21,7 +21,7 @@
                     <div class="flex flex-col flex-1 gap-3">
                         <RouterLink to="/Admin" v-if="authStore.isAdmin">
                             <a href="#"
-                                class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
+                                class="flex items-center px-4 py-2 mt-2 text-skin-secondary hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -32,7 +32,7 @@
                         </RouterLink>
                         <RouterLink to="/admin/admin-list" v-if="authStore.isAdmin">
                             <a href="#"
-                                class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
+                                class="flex items-center px-4 py-2 mt-2 text-skin-secondary hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -43,7 +43,7 @@
                         </RouterLink>
                         <RouterLink to="/admin/user-list" v-if="authStore.isAdmin">
                             <a href="#"
-                                class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
+                                class="flex items-center px-4 py-2 mt-2 text-skin-secondary hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -54,7 +54,7 @@
                         </RouterLink>
                         <RouterLink to="/admin/add-country" v-if="authStore.isAdmin">
                             <a href="#"
-                                class="flex items-center px-3 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
+                                class="flex items-center px-3 py-2 mt-2 text-skin-secondary hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none"
                                     stroke-width="2" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -70,7 +70,7 @@
     <!-- Main Content -->
     <div class="flex-1 p-8 ">
       <div class="mb-8 flex justify-between items-center">
-        <h1 class="text-2xl font-semibold text-slate-800">Admin List</h1>
+        <h1 class="text-2xl font-semibold text-skin-base ">Admin List</h1>
         <div class="relative">
           <input
             type="text"
@@ -91,29 +91,29 @@
       </div>
 
       <!-- Table -->
-      <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+      <div class="bg-skin-fill dark:bg-skin-card-primary rounded-xl shadow-sm overflow-hidden">
         <table class="w-full table-fixed">
           <thead class="bg-slate-50">
             <tr>
-              <th class="px-6 py-4 text-left text-sm font-medium text-slate-500">ID</th>
-              <th class="px-6 py-4 text-left text-sm font-medium text-slate-500">USERNAME</th>
-              <th class="px-6 py-4 text-left text-sm font-medium text-slate-500">EMAIL</th>
-              <th class="px-6 py-4 text-left text-sm font-medium text-slate-500">ROLE</th>
-              <th class="px-6 py-4 text-left text-sm font-medium text-slate-500">REGISTER DATE</th>
-              <th class="px-6 py-4 text-left text-sm font-medium text-slate-500">ACTIONS</th>
+              <th class="px-6 py-4 text-left text-sm font-medium dark:text-skin-muted">ID</th>
+              <th class="px-6 py-4 text-left text-sm font-medium dark:text-skin-muted">USERNAME</th>
+              <th class="px-6 py-4 text-left text-sm font-medium dark:text-skin-muted">EMAIL</th>
+              <th class="px-6 py-4 text-left text-sm font-medium dark:text-skin-muted">ROLE</th>
+              <th class="px-6 py-4 text-left text-sm font-medium dark:text-skin-muted">REGISTER DATE</th>
+              <th class="px-6 py-4 text-left text-sm font-medium dark:text-skin-muted">ACTIONS</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-100">
-            <tr v-for="user in filteredUsers" :key="user.id" class="hover:bg-slate-50">
-              <td class="px-6 py-4 text-sm text-slate-600">{{ user.id }}</td>
-              <td class="px-6 py-4 text-sm text-slate-600">{{ user.username }}</td>
-              <td class="px-6 py-4 text-sm text-slate-600">{{ user.email }}</td>
+            <tr v-for="user in filteredUsers" :key="user.id" class="dark:hover:bg-skin-card-hover">
+              <td class="px-6 py-4 text-sm text-skin-secondary">{{ user.id }}</td>
+              <td class="px-6 py-4 text-sm text-skin-secondary">{{ user.username }}</td>
+              <td class="px-6 py-4 text-sm text-skin-secondary">{{ user.email }}</td>
               <td class="px-6 py-4">
                 <div class="relative">
                   <select
                     v-model="user.role"
                     @change="handleRoleChange(user.id, $event)"
-                    class="appearance w-40 px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    class="appearance w-40 px-3 py-2 rounded-lg border border-slate-200 bg-skin-fill dark:bg-skin-fill text-sm text-skin-secondary focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
@@ -121,7 +121,7 @@
                   
                 </div>
               </td>
-              <td class="px-6 py-4 text-sm text-slate-600">{{ user.registerDate }}</td>
+              <td class="px-6 py-4 text-sm text-skin-secondary">{{ user.registerDate }}</td>
               <td class="px-6 py-4">
                 <div class="flex gap-2">
                   <button class="p-3 text-red-600 hover:text-red-700">

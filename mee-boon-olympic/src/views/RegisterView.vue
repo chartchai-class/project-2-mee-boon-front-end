@@ -54,16 +54,12 @@ const onSubmit = handleSubmit((values) => {
 </script>
 
 <template>
-  <div class="flex min-h-screen bg-gray-100">
+  <div class="flex min-h-screen bg-skin-fill">
     <div class="m-auto w-full max-w-md">
-      <div class="bg-white rounded-lg shadow-xl p-8">
+      <div class="bg-skin-card-primary rounded-lg shadow-xl p-8">
         <div class="text-center">
-          <img
-            class="mx-auto h-12 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
-          <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
+          
+          <h2 class="mt-6 text-3xl font-extrabold text-skin-base">
             Create your account
           </h2>
         </div>
@@ -71,27 +67,27 @@ const onSubmit = handleSubmit((values) => {
         <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label for="firstname" class="block text-sm font-medium text-gray-700">First Name</label>
+              <label for="firstname" class="block text-sm font-medium text-skin-secondary">First Name</label>
               <InputText type="text" v-model="firstname" :error="errors['firstname']" class="mt-1"></InputText>
             </div>
             <div>
-              <label for="lastname" class="block text-sm font-medium text-gray-700">Last Name</label>
+              <label for="lastname" class="block text-sm font-medium text-skin-secondary">Last Name</label>
               <InputText type="text" v-model="lastname" :error="errors['lastname']" class="mt-1"></InputText>
             </div>
           </div>
 
           <div>
-            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+            <label for="username" class="block text-sm font-medium text-skin-secondary">Username</label>
             <InputText type="username" v-model="username" :error="errors['username']" class="mt-1"></InputText>
           </div>
 
           <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <label for="email" class="block text-sm font-medium text-skin-secondary">Email</label>
             <InputText type="email" v-model="email" :error="errors['email']" class="mt-1"></InputText>
           </div>
 
           <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <label for="password" class="block text-sm font-medium text-skin-secondary">Password</label>
             <InputText
               type="password"
               v-model="password"
@@ -104,7 +100,7 @@ const onSubmit = handleSubmit((values) => {
           <div>
             <button
               type="submit"
-              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              class="bg-skin-button-accent hover:bg-skin-button-hover w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Sign Up
             </button>

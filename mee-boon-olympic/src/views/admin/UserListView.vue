@@ -1,13 +1,13 @@
 <!-- UsersListDashboard.vue -->
 <template>
-    <div class="flex min-h-screen bg-slate-100">
+    <div class="bg-skin-base dark:-bg-skin-base flex min-h-screen ">
       <!-- Sidebar -->
-      <div class="hidden md:flex flex-col w-64 bg-gray-800 rounded-2xl m-4">
+      <div class="hidden md:flex flex-col w-64 rounded-2xl m-4">
             <div class="flex flex-col flex-1 overflow-y-auto">
                 <nav
                     class="flex flex-col flex-1 overflow-y-auto bg-gradient-to-b from-gray-700 to-blue-500 px-2 py-4 gap-10 rounded-2xl">
                     <div class="p-4 border-b border-slate-600">
-                        <div class="flex items-center text-white text-xl font-semibold">
+                        <div class="flex items-center text-skin-base text-xl font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -70,7 +70,7 @@
       <!-- Main Content -->
       <div class="flex-1 p-8">
         <div class="mb-8 flex justify-between items-center">
-          <h1 class="text-2xl font-semibold text-slate-800">Users List</h1>
+          <h1 class="text-2xl font-semibold text-skin-base ">Users List</h1>
           <div class="relative">
             <input
               type="text"
@@ -79,7 +79,7 @@
               class="pl-10 pr-4 py-2 w-64 rounded-full border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <svg 
-              class="absolute left-3 top-2.5 h-5 w-5 text-slate-400" 
+              class="absolute left-3 top-2.5 h-5 w-5 text-skin-secondary" 
               xmlns="http://www.w3.org/2000/svg" 
               fill="none" 
               viewBox="0 0 24 24" 
@@ -91,39 +91,39 @@
         </div>
   
         <!-- Table Card -->
-        <div class="bg-white rounded-xl shadow-sm">
+        <div class="bg-skin-base dark:bg-skin-card-primary rounded-xl shadow-sm">
           <div class="overflow-x-auto">
             <table class="w-full table-fixed">
               <thead class="bg-slate-50 border-b border-slate-200">
                 <tr>
-                  <th class="px-6 py-4 text-left text-sm font-medium text-slate-500">ID</th>
-                  <th class="px-6 py-4 text-left text-sm font-medium text-slate-500">USERNAME</th>
-                  <th class="px-6 py-4 text-left text-sm font-medium text-slate-500">EMAIL</th>
-                  <th class="px-6 py-4 text-left text-sm font-medium text-slate-500">ROLE</th>
-                  <th class="px-6 py-4 text-left text-sm font-medium text-slate-500">REGISTER DATE</th>
+                  <th class="px-6 py-4 text-left text-sm font-medium dark:text-skin-muted">ID</th>
+                  <th class="px-6 py-4 text-left text-sm font-medium dark:text-skin-muted">USERNAME</th>
+                  <th class="px-6 py-4 text-left text-sm font-medium dark:text-skin-muted">EMAIL</th>
+                  <th class="px-6 py-4 text-left text-sm font-medium dark:text-skin-muted">ROLE</th>
+                  <th class="px-6 py-4 text-left text-sm font-medium dark:text-skin-muted">REGISTER DATE</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100">
                 <tr v-for="user in filteredUsers" :key="user.id" class="hover:bg-slate-50">
-                  <td class="px-6 py-4 text-sm text-slate-600">{{ user.id }}</td>
-                  <td class="px-6 py-4 text-sm text-slate-600">{{ user.username }}</td>
-                  <td class="px-6 py-4 text-sm text-slate-600">{{ user.email }}</td>
+                  <td class="px-6 py-4 text-sm text-skin-secondary">{{ user.id }}</td>
+                  <td class="px-6 py-4 text-sm text-skin-secondary">{{ user.username }}</td>
+                  <td class="px-6 py-4 text-sm text-skin-secondary">{{ user.email }}</td>
                   <td class="px-6 py-4">
                     <div class="relative">
                       <select
                         v-model="user.role"
                         @change="handleRoleChange(user.id, $event)"
-                        class="appearance-none w-40 px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="appearance-none w-40 px-3 py-2 rounded-lg border border-slate-200 bg-skin-base dark:bg-skin-card-primary text-sm text-skin-secondary focus:outline-none focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="user">User</option>
                         <option value="admin">Admin</option>
                       </select>
-                      <svg class="absolute right-3 top-2.5 h-5 w-5 text-slate-400 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg class="absolute right-3 top-2.5 h-5 w-5 text-skin-secondary pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                       </svg>
                     </div>
                   </td>
-                  <td class="px-6 py-4 text-sm text-slate-600">{{ user.registerDate }}</td>
+                  <td class="px-6 py-4 text-sm text-skin-secondary">{{ user.registerDate }}</td>
                 </tr>
               </tbody>
             </table>
@@ -132,21 +132,21 @@
           <!-- Pagination -->
           <div class="px-6 py-4 border-t border-slate-200">
             <div class="flex justify-between items-center">
-              <div class="text-sm text-slate-600">
+              <div class="text-sm text-skin-secondary">
                 Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ totalUsers }} entries
               </div>
               <div class="flex gap-2">
                 <button
                   @click="previousPage"
                   :disabled="currentPage === 1"
-                  class="px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+                  class="px-4 py-2 text-sm text-skin-secondary hover:bg-slate-50 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Previous
                 </button>
                 <button
                   @click="nextPage"
                   :disabled="currentPage === totalPages"
-                  class="px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+                  class="px-4 py-2 text-sm text-skin-secondary hover:bg-slate-50 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Next
                 </button>

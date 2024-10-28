@@ -80,7 +80,7 @@ onMounted(() => {
       </div>
 
       <!-- Desktop Menu -->
-      <div class="hidden lg:flex items-center gap-4 ">
+      <div class="text-skin-base hidden lg:flex items-center gap-4 ">
         <!-- Theme Toggle Button -->
         <button
           @click="toggleTheme"
@@ -146,7 +146,7 @@ onMounted(() => {
             <li>
               <router-link
                 to="/profile"
-                class="group flex items-center p-2 rounded-lg hover:bg-blue-50 transition-all duration-200"
+                class="group flex items-center p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-button-accent dark:bg-skin-fill transition-all duration-200"
               >
                 <div class="flex items-center space-x-3">
                   <!-- Profile Icon -->
@@ -161,19 +161,19 @@ onMounted(() => {
                     <div v-if="authStore.isAdmin" class="flex items-center space-x-2">
                       <router-link
                         to="/admin"
-                        class="inline-flex items-center px-3 py-1 text-sm font-medium text-blue-700 bg-blue-100 rounded-full border border-blue-200 hover:bg-blue-200 hover:text-blue-800 transition-colors duration-200"
+                        class="inline-flex items-center px-3 py-1 text-sm font-medium text-skin-base bg-skin-button-button-accent dark:tesxt rounded-full border border-blue-200 hover:bg-blue-200 hover:text-blue-800 transition-colors duration-200"
                       >
                         <span class="mr-1.5">❖</span>
                         <span class="font-semibold">Admin</span>
                       </router-link>
 
-                      <span class="text-sm font-medium text-gray-700">
+                      <span class="text-sm font-medium text-skin-base">
                         {{ authStore.currentUserName }}
                       </span>
                     </div>
 
                     <!-- Regular User Name -->
-                    <span v-else class="text-sm font-medium text-gray-700">
+                    <span v-else class="text-sm font-medium text-skin-base">
                       {{ authStore.currentUserName }}
                     </span>
                   </div>
@@ -240,8 +240,4 @@ onMounted(() => {
   </div>
 </template>
 
-<style>
-* {
-  transition: background-color 0.5s ease, color 0.3s ease, border-color 0.3s ease;
-}
-</style>
+

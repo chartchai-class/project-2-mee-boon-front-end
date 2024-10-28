@@ -1,5 +1,5 @@
 <template>
-    <div class="flex min-h-screen bg-[#EAEFFF]">
+    <div class="bg-skin-base dark:bg-skin-fill flex min-h-screen bg-[#EAEFFF]">
         <!-- Sidebar -->
         <div class="hidden md:flex flex-col w-64 bg-gray-800 rounded-2xl m-4">
             <div class="flex flex-col flex-1 overflow-y-auto">
@@ -67,7 +67,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 p-8">
+        <div class="flex-1 p-8 bg-skin-fill">
             <div class="medalHome">
                 <MedalTable />
             </div>

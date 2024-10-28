@@ -1,25 +1,24 @@
 <template>
-  <div
-    class="min-h-screen flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-gradient-to-b from-blue-50 to-white"
-  >
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+  <div class="min-h-screen flex justify-center items-center px-6 py-12 lg:px-8 bg-skin-base dark:bg-skin-fill">
+    <div class="border dark:border-skin-secondary w-fit px-10 py-8 rounded-lg ">
+    <div class=" sm:mx-auto sm:w-full sm:max-w-sm">
       <!-- Olympic Rings -->
-      <div class="flex justify-center space-x-2 mb-8">
+      <div class="py-10 px-10 flex justify-center space-x-2 mb-8">
         <div class="w-8 h-8 rounded-full border-4 border-blue-500"></div>
         <div class="w-8 h-8 rounded-full border-4 border-yellow-500"></div>
-        <div class="w-8 h-8 rounded-full border-4 border-black"></div>
+        <div class="w-8 h-8 rounded-full border-4 border-black dark:border-button-primary"></div>
         <div class="w-8 h-8 rounded-full border-4 border-green-500"></div>
         <div class="w-8 h-8 rounded-full border-4 border-red-500"></div>
       </div>
 
-      <h2 class="text-center text-3xl font-bold tracking-tight text-gray-900">
+      <h2 class="text-center text-3xl font-bold tracking-tight dark:text-skin-base">
         Mee boon Olympic Games Portal
       </h2>
-      <p class="mt-2 text-center text-sm text-gray-600">Sign in to access your Olympic account</p>
+      <p class="mt-2 text-center text-sm text-skin-secondary">Sign in to access your Olympic account</p>
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
-      <div class="bg-white p-8 rounded-lg shadow-xl border border-gray-100">
+      <div class=" p-8 rounded-lg shadow-xl border border-gray-100">
         <!-- แสดงข้อความข้อผิดพลาด -->
         <div v-if="loginError" class="mb-4 text-sm text-red-600">
           {{ loginError }}
@@ -27,7 +26,7 @@
 
         <form class="space-y-6" @submit.prevent="onSubmit">
           <div>
-            <label for="email" class="block text-sm font-medium leading-6 text-gray-900"
+            <label for="email" class="block text-sm font-medium leading-6 dark:text-skin-base"
               >Email address</label
             >
             <InputText
@@ -43,13 +42,13 @@
 
           <div>
             <div class="flex items-center justify-between mb-2">
-              <label for="password" class="block text-sm font-medium leading-6 text-gray-900"
+              <label for="password" class="block text-sm font-medium leading-6 dark:text-skin-base"
                 >Password</label
               >
               <div class="text-sm">
                 <a
                   href="#"
-                  class="font-semibold text-blue-600 hover:text-blue-500 transition-colors duration-200"
+                  class="font-semibold text-skin-secondary hover:text-skin-base transition-colors duration-200"
                 >
                   Forgot password?
                 </a>
@@ -66,7 +65,7 @@
           <div>
             <button
               type="submit"
-              class="flex w-full justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-colors duration-200"
+              class="dark:bg-skin-button-accent dark:hover:bg-skin-button-hover flex w-full justify-center rounded-md bg-skin-button-accent px-4 py-2 text-sm font-semibold text-skin-muted dark:text-skin-base shadow-sm hover:bg-skin-button-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2  transition-colors duration-200"
             >
               Sign in to Olympic Portal
             </button>
@@ -79,14 +78,14 @@
               <div class="w-full border-t border-gray-300"></div>
             </div>
             <div class="relative flex justify-center text-sm">
-              <span class="px-2 bg-white text-gray-500">Not a member?</span>
+              <span class="px-2 bg-skin-card-primary text-gray-500">Not a member?</span>
             </div>
           </div>
 
           <div class="mt-6 text-center">
             <button
               type="button"
-              class="font-semibold text-blue-600 hover:text-blue-500 transition-colors duration-200"
+              class="font-semibold text-skin-secondary hover:text-skin-base transition-colors duration-200"
               @click="goToRegister"
             >
               Register for Olympic Account
@@ -98,6 +97,7 @@
       <div class="mt-8 text-center">
         <p class="text-xs text-gray-500">Protected by Olympic Committee Security</p>
       </div>
+    </div>
     </div>
   </div>
 </template>

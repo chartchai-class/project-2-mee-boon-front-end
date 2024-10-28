@@ -86,8 +86,8 @@ function saveCountries() {
 </script>
 
 <template>
-  <div class="max-w-5xl mx-auto p-8 bg-white rounded-3xl shadow-sm">
-    <h1 class="text-2xl font-semibold text-gray-800 mb-6">Add New Country</h1>
+  <div class=" max-w-5xl mx-auto p-8 mt-20 mb-20 bg-skin-card-primary rounded-3xl shadow-sm">
+    <h1 class="text-2xl font-semibold text-skin-base mb-6">Add New Country</h1>
 
     <div v-if="store.message" class="text-red-500">
       {{ store.message }}
@@ -97,10 +97,10 @@ function saveCountries() {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="space-y-6">
           <BaseInput v-model="country.name" label="Country Name" />
-          <BaseInput v-model="country.nocCode" label="NOC Code" />
+          <BaseInput v-model="country.nocCode"  label="NOC Code" />
           <BaseInput v-model="country.flagUrl" label="Flag URL" />
           <div>
-            <label class="block text-sm font-medium text-gray-700">Basic Information</label>
+            <label class="block text-sm font-medium text-skin-secondary">Basic Information</label>
             <textarea
               v-model="country.basicInfo"
               rows="4"
@@ -111,7 +111,7 @@ function saveCountries() {
         </div>
 
         <div class="space-y-6">
-          <h3 class="text-lg font-semibold text-gray-700">Medals Count</h3>
+          <h3 class="text-lg font-semibold text-skin-secondary">Medals Count</h3>
           <BaseInput v-model="country.medals[0].goldCount" label="Gold 🥇" type="number" />
           <BaseInput v-model="country.medals[0].silverCount" label="Silver 🥈" type="number" />
           <BaseInput v-model="country.medals[0].bronzeCount" label="Bronze 🥉" type="number" />
@@ -119,7 +119,7 @@ function saveCountries() {
       </div>
 
       <div>
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Sports & Rankings</h3>
+        <h3 class="text-lg font-semibold text-skin-secondary mb-4">Sports & Rankings</h3>
         <div class="space-y-4">
           <div
             v-for="(sport, index) in country.ownSports"
@@ -139,7 +139,7 @@ function saveCountries() {
               Medals
               <select v-model="sport.medalsUrl" class="border rounded p-2">
                 
-                <option value="🥇">🥇 Gold</option>
+                <option value="🥇">🥇 Gold </option>
                 <option value="🥈">🥈 Silver</option>
                 <option value="🥉">🥉 Bronze</option>
               </select>            </div>
