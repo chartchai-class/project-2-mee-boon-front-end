@@ -210,19 +210,19 @@ watch(
 
             <div class="grid grid-cols-4 gap-4 mb-3">
               <div class="text-center">
-                <div class="text-xs text-skin-muted mb-1">Gold</div>
+                <div class="text-xs text-skin-gold mb-1">Gold</div>
                 <div class="font-medium text-skin-gold">{{ country.gold }}</div>
               </div>
               <div class="text-center">
-                <div class="text-xs text-skin-muted mb-1">Silver</div>
+                <div class="text-xs text-skin-silver mb-1">Silver</div>
                 <div class="font-medium text-skin-silver">{{ country.silver }}</div>
               </div>
               <div class="text-center">
-                <div class="text-xs text-skin-muted mb-1">Bronze</div>
+                <div class="text-xs text-skin-bronze mb-1">Bronze</div>
                 <div class="font-medium text-skin-bronze">{{ country.bronze }}</div>
               </div>
               <div class="text-center">
-                <div class="text-xs text-skin-muted mb-1">Total</div>
+                <div class="text-xs text-skin-base mb-1">Total</div>
                 <div class="font-medium text-skin-base">{{ country.total }}</div>
               </div>
             </div>
